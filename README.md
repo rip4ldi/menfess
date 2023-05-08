@@ -5,7 +5,7 @@ Dapat Mengirimkan Pesan Secara Anonim Lewat Bot Telegram
  
 ### Installation
 
-<details>#### Deploy on Heroku
+<#### Deploy on Heroku>
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nekolocal/nekomenfess)</br>
 </details>
 
