@@ -12,14 +12,16 @@ Dapat Mengirimkan Pesan Secara Anonim Lewat Bot Telegram
 #### Deploy on Railway
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new)
 
-#<details>
+<details>
 <summary><b>🔗 Deploy di VPS</b></summary>
 <br>
+
 ````bash
 git clone https://github.com/nekolocal/nekomenfess && cd nekomenfess
 pip install -r requirements.txt
 python3 main.py
 ````
+</details>
 
 #### START_MESSAGE | FORCE_SUB_MESSAGE
 
