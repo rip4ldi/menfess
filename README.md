@@ -5,14 +5,16 @@ Dapat Mengirimkan Pesan Secara Anonim Lewat Bot Telegram
  
 ### Installation
 
-<#### Deploy on Heroku>
+#### Deploy on Heroku
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nekolocal/nekomenfess)</br>
-</details>
+
 
 #### Deploy on Railway
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new)
 
-#### Deploy in your VPS
+#<details>
+<summary><b>🔗 Deploy di VPS</b></summary>
+<br>
 ````bash
 git clone https://github.com/nekolocal/nekomenfess && cd nekomenfess
 pip install -r requirements.txt
