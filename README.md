@@ -23,11 +23,11 @@ Dapat Mengirimkan Pesan Secara Anonim Lewat Bot Telegram
 <summary><b>🔗 Deploy di VPS</b></summary>
 <br>
 
-````bash
-git clone https://github.com/nekolocal/nekomenfess && cd nekomenfess
-pip install -r requirements.txt
-python3 main.py
-````
+
+`git clone https://github.com/nekolocal/nekomenfess && cd nekomenfess`
+`pip install -r requirements.txt`
+`python3 main.py`
+
 </details>
 
 #### START_MESSAGE | FORCE_SUB_MESSAGE
