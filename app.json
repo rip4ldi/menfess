@@ -1,13 +1,15 @@
 {
-  "name": "Menfess bot fwb",
+  "name": "NekoMenfess",
   "description": "mengirim pesan ke channel telegram secara anonymous",
   "keywords": [
     "telegram",
     "menfess",
     "fwb"
+    "Neko"
+    "NekoMenfess"
   ],
-  "repository": "https://github.com/cepheidev/alterbase-telegram",
-  "logo": "https://telegra.ph/file/a6a2175f88089079b77ce.jpg",
+  "repository": "https://github.com/nekolocal/nekomenfess/tree/main",
+  "logo": "https://telegra.ph/file/2d46007dd7d22645c4ec3.jpg",
   "env": {
     "BOT_TOKEN": {
       "description": "Masukkan token bot kamu, didapatkan dari @Botfather",
@@ -102,16 +104,16 @@
       "value": "50"
     },
     "HASTAG": {
-      "description": "menambahkan hastag, dipisahkan dengan spasi (#altergirl wajib diawal dan #alterboy setelah altergirl)",
-      "value": "#AlterGirl #AlterBoy #AlterAsk #AlterFind #AlterSpill #AlterStory"
+      "description": "menambahkan hastag, dipisahkan dengan spasi (#nekogirl wajib diawal dan #nekoboy setelah nekogirl)",
+      "value": "#NekoGirl #NekoBoy #NekoAsk #NekoFind #NekoSpill #NekoStory"
     },
     "PIC_BOY": {
       "description": "gambar fwb boy",
-      "value": "https://telegra.ph/file/a6a2175f88089079b77ce.jpg"
+      "value": "https://telegra.ph/file/387bdabb03deaf94fa4e9.jpg"
     },
     "PIC_GIRL": {
       "description": "gambar fwb girl",
-      "value": "https://telegra.ph/file/932c903b1dcfb8f9780e6.jpg"
+      "value": "https://telegra.ph/file/2bc2dc1fad8e33cf69e6d.jpg"
     },
     "PESAN_JOIN": {
       "description": "pesan join grup, atau akses ditolak",
@@ -123,10 +125,10 @@
     },
     "GAGAL_KIRIM": {
       "description": "pesan ketika hastag yang diketik tidak sesuai",
-      "value": "{mention}, pesan mu gagal terkirim silahkan gunakan hastag:\n\n#AlterBoy / #AlterGirl untuk Mencari Pasangan, Teman , Partner dll\n#AlterAsk untuk Bertanya\n#AlterStory untuk Berbagi Cerita\n#AlterSpill untuk Spill Masalah\n#AlterFind untuk Mencari Pasangan, Teman, Partner dll"
+      "value": "{mention}, pesan mu gagal terkirim silahkan gunakan hastag:\n\n#NekoBoy / #NekoGirl untuk Mencari Pasangan, Teman , Partner dll\n#NekoAsk untuk Bertanya\n#NekoStory untuk Berbagi Cerita\n#NekoSpill untuk Spill Masalah\n#NekoFind untuk Mencari Pasangan, Teman, Partner dll"
     }
   },
-  "buildpacks": [
+    "buildpacks": [
     {
       "url": "heroku/python"
     }
@@ -134,7 +136,7 @@
   "formation": {
     "worker": {
       "quantity": 1,
-      "size": "free"
+      "size": "eco"
     }
   }
 }
