@@ -127,7 +127,15 @@
       "value": "{mention}, pesan mu gagal terkirim silahkan gunakan hastag:\n\n#NekoBoy / #NekoGirl untuk Mencari Pasangan, Teman , Partner dll\n#NekoAsk untuk Bertanya\n#NekoStory untuk Berbagi Cerita\n#NekoSpill untuk Spill Masalah\n#NekoFind untuk Mencari Pasangan, Teman, Partner dll"
     }
   },
-    "buildpacks": [
+  "addons": [
+    {
+    "plan": "heroku-postgresql",
+      "options": {
+        "version": "12"
+      }
+    }
+  ],
+  "buildpacks": [
     {
       "url": "heroku/python"
     }
