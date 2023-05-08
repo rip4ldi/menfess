@@ -44,7 +44,15 @@ Jika Sudah Selesai,Salin Kode Dibawah dan Tempel di Vps
 ````bash
 pip install -r requirements.txt
 ````
-Langkah Terakhir Kalian Ketik Kode Dibawah di Vps Kalian dan Enter
+
+Lalu
+
+````bash
+screen -S nekomenfess
+
+````
+
+Langkah Terakhir Kalian Ketik Kode Dibawah/Copy Lalu Paste di Vps Kalian dan Enter
 ````bash
 python3 main.py
 ````
