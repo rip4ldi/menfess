@@ -22,7 +22,16 @@ Dapat Mengirimkan Pesan Secara Anonim Lewat Bot Telegram
 <details>
 <summary><b>🔗 Deploy di VPS</b></summary>
 <br>
+### REQUIREMENTS PACKAGE !
+-  Update & upgrade VPS anda `sudo apt update && upgrade -y`
+-  Install Git `sudo apt install git -y`
+-  Install Python3 `sudo apt install python3`
+-  Install PIP / PIP3 `sudo apt install python3-pip`
+-  Install NodeJs 16.X `curl -fsSL https://deb.nodesource.com/setup_16.x | sudo bash -` then do `sudo apt install -y nodejs vim`
+-  Install FFMPEG `sudo apt install tree wget2 p7zip-full jq ffmpeg wget git -y`
+-  Install Chrome `wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb` lalu ketik `sudo apt install ./google-chrome-stable_current_amd64.deb
 
+### Eksekusi
 Pertama Salin Kode Dibawah dan Tempel di Vps Kalian.. Tunggu Hingga Proses Selesai
 ````bash
 git clone https://github.com/nekolocal/nekomenfess && cd nekomenfess
