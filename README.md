@@ -23,12 +23,19 @@ Dapat Mengirimkan Pesan Secara Anonim Lewat Bot Telegram
 <summary><b>🔗 Deploy di VPS</b></summary>
 <br>
 
-
+Pertama Salin Kode Dibawah dan Tempel di Vps Kalian.. Tunggu Hingga Proses Selesai
 ````bash
 git clone https://github.com/nekolocal/nekomenfess && cd nekomenfess
 ````
-`pip install -r requirements.txt`
-`python3 main.py`
+Jika Sudah Selesai,Salin Kode Dibawah dan Tempel di Vps
+
+````bash
+pip install -r requirements.txt
+````
+Langkah Terakhir Kalian Ketik Kode Dibawah di Vps Kalian dan Enter
+````bash
+python3 main.py
+````
 
 </details>
 
