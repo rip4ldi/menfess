@@ -1,0 +1,140 @@
+{
+  "name": "Menfess bot fwb",
+  "description": "mengirim pesan ke channel telegram secara anonymous",
+  "keywords": [
+    "telegram",
+    "menfess",
+    "fwb"
+  ],
+  "repository": "https://github.com/cepheidev/alterbase-telegram",
+  "logo": "https://telegra.ph/file/a6a2175f88089079b77ce.jpg",
+  "env": {
+    "BOT_TOKEN": {
+      "description": "Masukkan token bot kamu, didapatkan dari @Botfather",
+      "value": ""
+    },
+    "API_HASH": {
+      "description": "app hash kamu, didapatkan dari my.telegram.org",
+      "value": ""
+    },
+    "API_ID": {
+      "description": "app id kmau, didapatkan dari my.telegram.org",
+      "value": ""
+    },
+    "DB_URL": {
+      "description": "dapatkan database kamu di https://cloud.mongodb.com/",
+      "value": ""
+    },
+    "DB_NAME": {
+      "description": "nama database",
+      "value": "telegram"
+    },
+    "CHANNEL_1": {
+      "description": "channel id, untuk mengirim menfess",
+      "value": "-100"
+    },
+    "CHANNEL_2": {
+      "description": "grup id, untuk mengcomment dichannel menfess",
+      "value": "-100"
+    },
+    "CHANNEL_LOG": {
+      "description": "channel log id, untuk melihat log user menfess",
+      "value": "-100"
+    },
+    "ID_ADMIN": {
+      "description": "ID OWNER BOT MENFESS",
+      "value": ""
+    },
+    "BATAS_KIRIM": {
+      "description": "Batas kirim menfess perhari",
+      "value": "5"
+    },
+    "BATAS_TALENT": {
+      "description": "Batas top talent",
+      "value": "10"
+    },
+    "BATAS_DADDY_SUGAR": {
+      "description": "Batas top talent",
+      "value": "10"
+    },
+    "BATAS_MOANSGIRL": {
+      "description": "Batas top moans girl",
+      "value": "10"
+    },
+    "BATAS_MOANSBOY": {
+      "description": "Batas top moans boy",
+      "value": "10"
+    },
+    "BATAS_GFRENT": {
+      "description": "Batas top girlfriend rent",
+      "value": "10"
+    },
+    "BATAS_BFRENT": {
+      "description": "Batas top boyfriend rent",
+      "value": "10"
+    },
+    "BIAYA_KIRIM": {
+      "description": "biaya kirim user menfess",
+      "value": "10"
+    },
+    "BIAYA_TALENT": {
+      "description": "biaya rating user ke talent fwb",
+      "value": "80"
+    },
+    "BIAYA_DADDY_SUGAR": {
+      "description": "biaya rating user ke daddy sugar fwb",
+      "value": "50"
+    },
+    "BIAYA_MOANSGIRL": {
+      "description": "biaya rating user ke moans girl fwb",
+      "value": "40"
+    },
+    "BIAYA_MOANSBOY": {
+      "description": "biaya rating user ke moans boy fwb",
+      "value": "50"
+    },
+    "BIAYA_GFRENT": {
+      "description": "biaya rating user ke girl friend rent fwb",
+      "value": "40"
+    },
+    "BIAYA_BFRENT": {
+      "description": "biaya rating user ke boy friend rent fwb",
+      "value": "50"
+    },
+    "HASTAG": {
+      "description": "menambahkan hastag, dipisahkan dengan spasi (#altergirl wajib diawal dan #alterboy setelah altergirl)",
+      "value": "#AlterGirl #AlterBoy #AlterAsk #AlterFind #AlterSpill #AlterStory"
+    },
+    "PIC_BOY": {
+      "description": "gambar fwb boy",
+      "value": "https://telegra.ph/file/a6a2175f88089079b77ce.jpg"
+    },
+    "PIC_GIRL": {
+      "description": "gambar fwb girl",
+      "value": "https://telegra.ph/file/932c903b1dcfb8f9780e6.jpg"
+    },
+    "PESAN_JOIN": {
+      "description": "pesan join grup, atau akses ditolak",
+      "value": "Tidak dapat diakses harap join terlebih dahulu"
+    },
+    "START_MSG": {
+      "description": "pesan start pada bot",
+      "value": "Hai {fullname} 🌱\n\nIni adalah bot alterbase, semua pesan yang kamu kirim akan masuk ke channel secara anonymous. ketik /help"
+    },
+    "GAGAL_KIRIM": {
+      "description": "pesan ketika hastag yang diketik tidak sesuai",
+      "value": "{mention}, pesan mu gagal terkirim silahkan gunakan hastag:\n\n#AlterBoy / #AlterGirl untuk Mencari Pasangan, Teman , Partner dll\n#AlterAsk untuk Bertanya\n#AlterStory untuk Berbagi Cerita\n#AlterSpill untuk Spill Masalah\n#AlterFind untuk Mencari Pasangan, Teman, Partner dll"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "free"
+    }
+  }
+}
