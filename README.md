@@ -25,7 +25,8 @@ Dapat Mengirimkan Pesan Secara Anonim Lewat Bot Telegram
 
 
 ````bash
-git clone https://github.com/nekolocal/nekomenfess && cd nekomenfess````
+git clone https://github.com/nekolocal/nekomenfess && cd nekomenfess
+````
 `pip install -r requirements.txt`
 `python3 main.py`
 
