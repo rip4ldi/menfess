@@ -22,6 +22,7 @@ Dapat Mengirimkan Pesan Secara Anonim Lewat Bot Telegram
 <details>
 <summary><b>🔗 Deploy di VPS</b></summary>
 <br>
+
 ### REQUIREMENTS PACKAGE !
 -  Update & upgrade VPS anda `sudo apt update && upgrade -y`
 -  Install Git `sudo apt install git -y`
