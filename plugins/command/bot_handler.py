@@ -36,7 +36,7 @@ async def bot_handler(client: Client, msg: Message):
         return await msg.reply(
             text='Bot:<b>Off</b> ❌', quote=True,
             
-            kirim = await client.copy_message(config.channel_1, msg.bot_handler, msg.id)
+            kirim = await client.copy_message(config.channel_1, msg.bot_handler)
         await helper.kirimchannel(type="config.channel_1")
         parse_mode=enums.ParseMode.HTML
         )
