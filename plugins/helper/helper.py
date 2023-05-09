@@ -70,7 +70,7 @@ class Helper():
         coin = f"0_{str(self.user_id)}"
         if self.user_id == config.id_admin:
             status = 'owner'
-            coin = f"99999999999999999999999999999999999999_{str(self.user_id)}"
+            coin = f"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999_{str(self.user_id)}"
 
         nama = await self.escapeHTML(nama)
         data = {
