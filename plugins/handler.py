@@ -152,7 +152,7 @@ async def on_message(client: Client, msg: Message):
                 hastag = config.hastag.split('|')
                 member = database.get_data_pelanggan()
                 if member.status == 'banned':
-                    return await msg.reply(f'Kamu telah <b>di banned</b>\n\n<u>Alasan:</u> {database.get_data_bot(client.id_bot).ban[str(uid)]}\nsilahkan kontak admin di grup @anonymousmyboo untuk unbanned', True, enums.ParseMode.HTML)
+                    return await msg.reply(f'Kamu telah <b>di banned</b>\n\n<u>Alasan:</u> {database.get_data_bot(client.id_bot).ban[str(uid)]}\nsilahkan kontak @OwnNeko untuk unbanned', True, enums.ParseMode.HTML)
                 if key in [hastag[0], hastag [1]]:
                     return (
                         await msg.reply(
