@@ -9,7 +9,7 @@ data = []
 class Bot(Client):
     def __init__(self):
         super().__init__(
-            'alterbase_bot',
+            'nekomenfessbot',
             api_id=config.api_id,
             api_hash=config.api_hash,
             plugins={
