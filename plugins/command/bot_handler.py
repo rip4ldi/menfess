@@ -23,7 +23,7 @@ async def bot_handler(client: Client, msg: Message):
             )
         await my_db.bot_handler(status)
         return await msg.reply(
-            text='Bot:<b>AKTIF</b>', quote=True,
+            text='Bot:<b> on</b>', quote=True,
             parse_mode=enums.ParseMode.HTML
         )
     else:
@@ -34,7 +34,7 @@ async def bot_handler(client: Client, msg: Message):
             )
         await my_db.bot_handler(status)
         return await msg.reply(
-            text='Bot:<b>Off</b> ❌', quote=True,
+            text='Bot:<b> off</b> ❌', quote=True,
                     parse_mode=enums.ParseMode.HTML
         )
 
