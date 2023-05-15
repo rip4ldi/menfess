@@ -65,11 +65,11 @@ class Bot(Client):
             BotCommand('bfrent', '🤵 boy friend rent')
         ], BotCommandScopeAllPrivateChats())
 
-        print('BOT TELAH AKTIF')
+        print('MIAW...BOT TELAH AKTIF')
     
     async def stop(self):
         await super().stop()
-        print('BOT BERHASIL DIHENTIKAN')
+        print('GRRRR...BOT BERHASIL DIHENTIKAN')
     
     async def kirim_pesan(self, x: str):
         db = Database(config.id_admin).get_pelanggan()
