@@ -33,7 +33,7 @@ async def status_handler(client: Client, msg: types.Message):
     helper = Helper(client, msg)
 
     db = Database(msg.from_user.id).get_data_pelanggan()
-    pesan = 'img = Image.open('https://raw.githubusercontent.com/nekolocal/nekomenfess/main/20230508_142127.jpg')'
+    pesan = 'img = Image.open('20230508_142127.jpg')'
     pesan = '<b>🏷Info user</b>\n'
     pesan += f'├ID : <code>{db.id}</code>\n'
     pesan += f'├Nama : {db.mention}\n'
