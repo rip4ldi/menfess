@@ -48,7 +48,7 @@ pic_gfrent = os.environ.get("PIC_GFRENT" , "https://telegra.ph/file/432e8cb26179
 pic_bfrent = os.environ.get("PIC_BFRENT" , "https://telegra.ph/file/e0dc732430d9b1b0cbfa1.jpg")
 pic_owner = os.environ.get("PIC_OWNER" , "https://telegra.ph/file/52a68a944487567d30826.jpg")
 pic_neko = os.environ.get("PIC_NEKO" , "https://telegra.ph/file/2d46007dd7d22645c4ec3.jpg")
-pic_admin = os.environ.get("PIC_ADMIN" , "https://telegra.ph/file/b8c8a03d7cbc2379de6ec.jpg")
+pic_admin = os.environ.get("PIC_ADMIN" , "https://telegra.ph/file/30c7b36f68d69840a762c.jpg")
 
 
 # =========================================================== #
