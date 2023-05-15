@@ -17,7 +17,7 @@ async def talent_handler(client: Client, msg: types.Message):
             top_rate.append(rate)
             top_id.append(uid)
     top_rate.sort(reverse=True)
-    pesan = "<b>Daftar Talent Fwb</b>\n\n" + "No — Talent — Rating\n"
+    pesan = "<b>Daftar Talent NekoMenfess</b>\n\n" + "No — Talent — Rating\n"
     index = 1
     for i in top_rate:
         if index > config.batas_talent:
