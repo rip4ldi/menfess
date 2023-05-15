@@ -28,9 +28,9 @@ async def send_with_pic_handler(client: Client, msg: types.Message, key: str, ha
             
         if user.status == 'talent':
             picture = config.pic_talentgirl
-     elif user.status == 'owner':
+     if user.status == 'owner':
             picture = config.pic_owner
-     elif user.status == 'admin':
+     if user.status == 'admin':
             picture = config.pic_admin
      elif user.status == 'daddy sugar':
             picture = config.pic_daddysugar
