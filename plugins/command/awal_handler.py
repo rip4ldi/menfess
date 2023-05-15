@@ -33,7 +33,7 @@ async def status_handler(client: Client, msg: types.Message):
     image_path = '20230508_142127.jpg'
     image = Image.open(image_path)
     db = Database(msg.from_user.id).get_data_pelanggan()
-    pesan = 'image.show()'
+    pesan = image.show()
     pesan = '<b>🏷Info user</b>\n'
     pesan += f'├ID : <code>{db.id}</code>\n'
     pesan += f'├Nama : {db.mention}\n'
