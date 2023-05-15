@@ -92,7 +92,7 @@ class Helper():
             pesan += f"├ Username -: {self.username}\n"
             pesan += f"├ Mention -: {self.mention}\n"
             pesan += f"├ Kirim pesan -: <a href='tg://openmessage?user_id={self.user_id}'>{await self.escapeHTML(self.fullname)}</a>\n"
-            pesan += f"├ Cek Pesan : <a href='{link}'>Lihat pesan</a>\n"
+            pesan += f"├ Cek Pesan : {link}\n"
             pesan += f"└ Waktu -: {self.get_time().full_time}"
         elif type == 'log_daftar':
             pesan = "<b>📊DATA USER BERHASIL DITAMBAHKAN DIDATABASE</b>\n"
