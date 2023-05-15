@@ -1,5 +1,5 @@
 import config
-from PIL import Image
+
 
 from pyrogram import Client, types, enums
 from plugins import Helper, Database
