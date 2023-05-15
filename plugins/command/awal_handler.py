@@ -1,4 +1,5 @@
 import config
+from PIL import Image
 
 from pyrogram import Client, types, enums
 from plugins import Helper, Database
@@ -29,7 +30,9 @@ async def start_handler(client: Client, msg: types.Message):
 
 async def status_handler(client: Client, msg: types.Message):
     helper = Helper(client, msg)
+    image_path = '20230508_142127.jpg'
     db = Database(msg.from_user.id).get_data_pelanggan()
+    pesan = 'image = Image.open(image_path)'
     pesan = '<b>🏷Info user</b>\n'
     pesan += f'├ID : <code>{db.id}</code>\n'
     pesan += f'├Nama : {db.mention}\n'
