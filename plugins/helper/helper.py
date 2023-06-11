@@ -13,6 +13,7 @@ from .waktu import Waktu
 class Helper():
     def __init__(self, bot: Client, message: Message):
         self.bot = bot
+        self.client = bot  
         self.message = message
         self.user_id = message.from_user.id
         self.first = message.from_user.first_name
