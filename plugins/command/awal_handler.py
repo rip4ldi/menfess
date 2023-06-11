@@ -41,7 +41,7 @@ async def status_handler(client: Client, msg: types.Message):
     pesan += f'├Menfess : {db.menfess}/{config.batas_kirim}\n'
     pesan += f'├Semua Menfess : {db.all_menfess}\n'
     pesan += f'└Bergabung : {db.sign_up}'
-    await msg.reply(pesan, True, enums.ParseMode.HTML)
+    
     
         # Insert the status image
     status_image_path = "20230508_142127.jpg"
