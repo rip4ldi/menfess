@@ -56,11 +56,7 @@ async def status_handler(client: Client, msg: types.Message):
     # Reply with the updated message
     await msg.reply(pesan_with_image_text, True, enums.ParseMode.HTML)
 
-# Rest of the code...
 
-# Example usage:
-with Client("status_handler", config.api_id, config.api_hash, plugins=config.plugins) as client:
-    client.run(status_handler)
 
 async def statistik_handler(client: Helper, id_bot: int):
     db = Database(client.user_id)
