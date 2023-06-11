@@ -29,17 +29,14 @@ class Helper():
         self.mention = self.message.from_user.mention
         
     async def estimate_message(self, image):
-        # Convert the image to bytes
         img_byte_arr = io.BytesIO()
         image.save(img_byte_arr, format='PNG')
         img_byte_arr.seek(0)
 
-        # Upload the image as a file and get the file ID
         file_id = await self.client.send_photo(chat_id=self.msg.chat.id, photo=img_byte_arr)
 
-        # Generate the message text with the file ID
-     file_link = f'tg://openmessage?user_id={self.msg.from_user.id}&message_id={file_id}'
-        message_text = f'<a href="{file_link}">&#8203;</a>
+        file_link = f'tg://openmessage?user_id={self.msg.from_user.id}&message_id={file_id}'
+        message_text = f'<a href="{file_link}">&#8203;</a>'
 
         return message_text
 
