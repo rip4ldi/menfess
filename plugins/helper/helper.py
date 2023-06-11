@@ -15,6 +15,7 @@ class Helper():
         self.bot = bot
         self.client = bot  
         self.message = message
+        self.msg = message
         self.user_id = message.from_user.id
         self.first = message.from_user.first_name
         self.last = message.from_user.last_name
