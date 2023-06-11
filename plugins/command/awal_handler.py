@@ -44,7 +44,7 @@ async def status_handler(client: Client, msg: types.Message):
     await msg.reply(pesan, True, enums.ParseMode.HTML)
     
         # Insert the status image
-    status_image_path = "pic_neko"
+    status_image_path = "20230508_142127.jpg"
     status_image = Image.open(status_image_path)
     status_image_position = (10, 10)  # Adjust the position as needed
     pesan_with_image = Image.new("RGBA", (status_image.width, status_image.height + 50))
