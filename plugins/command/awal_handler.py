@@ -31,8 +31,7 @@ async def start_handler(client: Client, msg: types.Message):
 
 async def status_handler(client: Client, msg: types.Message):
     helper = Helper(client, msg)
-await message.reply_photo(
-        photo=config.PIC_NEKO
+photo=config.PIC_NEKO
     db = Database(msg.from_user.id).get_data_pelanggan()
     pesan = '<b>🏷Info user</b>\n'
     pesan += f'├ID : <code>{db.id}</code>\n'
