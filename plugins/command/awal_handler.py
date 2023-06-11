@@ -42,6 +42,25 @@ async def status_handler(client: Client, msg: types.Message):
     pesan += f'├Semua Menfess : {db.all_menfess}\n'
     pesan += f'└Bergabung : {db.sign_up}'
     await msg.reply(pesan, True, enums.ParseMode.HTML)
+    
+        # Insert the status image
+    status_image_path = "pic_neko"
+    status_image = Image.open(status_image_path)
+    status_image_position = (10, 10)  # Adjust the position as needed
+    pesan_with_image = Image.new("RGBA", (status_image.width, status_image.height + 50))
+    pesan_with_image.paste(status_image, status_image_position)
+
+    # Convert the image back to text
+    pesan_with_image_text = await helper.estimate_message(pesan_with_image)
+
+    # Reply with the updated message
+    await msg.reply(pesan_with_image_text, True, enums.ParseMode.HTML)
+
+# Rest of the code...
+
+# Example usage:
+with Client("status_handler", config.api_id, config.api_hash, plugins=config.plugins) as client:
+    client.run(status_handler)
 
 async def statistik_handler(client: Helper, id_bot: int):
     db = Database(client.user_id)
