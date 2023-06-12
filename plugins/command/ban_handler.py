@@ -106,7 +106,7 @@ async def check_banned_handler(client: Client, msg: types.Message):
             parse_mode=enums.ParseMode.HTML
         )
     target = x[2]
-    db = Database(target)
+    db = Database(int(target))
     if await db.cek_user_didatabase():
         member = db.get_data_pelanggan()
         if member.status == 'banned':
@@ -127,4 +127,3 @@ async def check_banned_handler(client: Client, msg: types.Message):
             quote=True,
             parse_mode=enums.ParseMode.HTML
         )
-
