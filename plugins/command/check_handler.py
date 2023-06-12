@@ -30,3 +30,6 @@ class Database:
 
     def get_ban_reason(self, user_id):
         return self.banned_users.get(user_id, "Reason not available")
+    
+def setup_handlers(client):
+    client.add_handler(types.MessageHandler(ban_check_command, commands=['check_ban']))
