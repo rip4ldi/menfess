@@ -93,9 +93,9 @@ async def unban_handler(client: Client, msg: types.Message):
         )
 
 async def check_banned_handler(client: Client, msg: types.Message):
-    if re.search(r"^[\/]check(\s|\n)*$", msg.text):
+    if re.search(r"^[\/]check_banned(\s|\n)*$", msg.text):
         return await msg.reply_text(
-            text="<b>Cara penggunaan check</b>\n\n<code>/check_banned id_user</code>\n<code>/check_banned @username</code>\n\nContoh :\n<code>/check_banned 121212021</code>\n<code>/check_banned @john_doe</code>",
+            text="<b>Cara penggunaan check_banned</b>\n\n<code>/check_banned id_user</code>\n<code>/check_banned @username</code>\n\nContoh :\n<code>/check_banned 121212021</code>\n<code>/check_banned @john_doe</code>",
             quote=True,
             parse_mode=enums.ParseMode.HTML
         )
@@ -127,3 +127,4 @@ async def check_banned_handler(client: Client, msg: types.Message):
             quote=True,
             parse_mode=enums.ParseMode.HTML
         )
+
