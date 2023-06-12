@@ -1,5 +1,5 @@
 import config
-from PIL import Image
+from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 
 from pyrogram import Client, types, enums
