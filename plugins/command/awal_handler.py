@@ -62,7 +62,7 @@ async def status_handler(client: Client, msg: types.Message):
     draw = ImageDraw.Draw(combined_image)
 
     # Define the font and text color for the caption
-    font = ImageFont.truetype('path/to/your/font.ttf', size=14)  # Replace with the actual font path
+    font = ImageFont.truetype('plugins/database/BebasNeue-Regular.ttf', size=14)  # Replace with the actual font path
     text_color = (0, 0, 0)  # Black color
 
     # Calculate the position to start drawing the caption
