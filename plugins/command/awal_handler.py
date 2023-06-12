@@ -44,7 +44,7 @@ async def status_handler(client: Client, msg: types.Message):
     # Load the image
     image = Image.open('20230508_142127.jpg')  # Replace with the actual image path
 
-    # Create a BytesIO stream to save the image
+        # Create a BytesIO stream to save the image
     image_stream = BytesIO()
     image.save(image_stream, format='JPEG')
     image_stream.seek(0)
@@ -52,33 +52,9 @@ async def status_handler(client: Client, msg: types.Message):
     # Send the image first
     photo_message = await msg.reply_photo(image_stream)
 
-    # Create a blank image with a white background
-    combined_image = Image.new('RGB', (image.width, image.height + 100), 'white')
-
-    # Paste the original image at the top of the blank image
-    combined_image.paste(image, (0, 0))
-
-    # Create a new image draw object
-    draw = ImageDraw.Draw(combined_image)
-
-    # Define the font and text color for the caption
-    font = ImageFont.truetype('plugins/database/BebasNeue-Regular.ttf', size=14)  # Replace with the actual font path
-    text_color = (0, 0, 0)  # Black color
-
-    # Calculate the position to start drawing the caption
-    caption_position = (0, image.height)
-
-    # Draw the caption text on the combined image
-    draw.text(caption_position, pesan, font=font, fill=text_color)
-
-    # Create a BytesIO stream to save the combined image
-    image_stream = BytesIO()
-    combined_image.save(image_stream, format='JPEG')
-    image_stream.seek(0)
-
-    # Send the combined image with caption
-    await msg.reply_photo(image_stream, parse_mode=enums.ParseMode.HTML)
-
+    # Reply with the text caption
+    await photo_message.reply_text(pesan, parse_mode=enums.ParseMode.HTML)
+    
 async def statistik_handler(client: Helper, id_bot: int):
     db = Database(client.user_id)
     bot = db.get_data_bot(id_bot)
