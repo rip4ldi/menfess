@@ -44,16 +44,13 @@ async def status_handler(client: Client, msg: types.Message):
     # Load the image
     image = Image.open('20230508_142127.jpg')  # Replace with the actual image path
 
-        # Create a BytesIO stream to save the image
+    # Create a BytesIO stream to save the image
     image_stream = BytesIO()
     image.save(image_stream, format='JPEG')
     image_stream.seek(0)
 
-    # Send the image first
-    photo_message = await msg.reply_photo(image_stream)
-
-    # Reply with the text caption
-    await photo_message.reply_text(pesan, parse_mode=enums.ParseMode.HTML)
+    # Reply with the photo and description
+    await msg.reply_photo(photo=image_stream, caption=pesan, parse_mode=enums.ParseMode.HTML)
     
 async def statistik_handler(client: Helper, id_bot: int):
     db = Database(client.user_id)
