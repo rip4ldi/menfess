@@ -4,6 +4,7 @@ from .send_handler import *
 from .ban_handler import *
 from .bot_handler import *
 from .talent_handler import *
+from .check_handler import *
 from .daddy_sugar import *
 from .moans_girl import *
 from .moans_boy import *
