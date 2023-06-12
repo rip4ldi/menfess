@@ -42,7 +42,7 @@ async def ban_handler(client: Client, msg: types.Message):
     user_info = await client.get_users(int(target))
 
     # Send notification to channel_1
-    notification_text = f"User {user_info.mention} (ID: {target}) has been banned. Reason: {alasan}"
+    notification_text = f"User {user_info.mention} dengan Id: {target}) sudah di banned. karena: {alasan}"
     await client.send_message(config.channel_1, notification_text)
 
     return await msg.reply_text(
@@ -73,7 +73,7 @@ async def unban_handler(client: Client, msg: types.Message):
             await db.unban_user(int(target), client.id_bot)
 
             # Send notification to channel_1
-            notification_text = f"User {user_info.mention} (ID: {target}) has been unbanned."
+            notification_text = f"User {user_info.mention} dengan Id: {target}) telah unbanned."
             await client.send_message(config.channel_1, notification_text)
 
             return await msg.reply_text(
