@@ -1,6 +1,8 @@
 import config
 from pyrogram import Client, types
 from plugins import Database, Helper
+from plugins.command.check_handler import setup_handlers as check_handler_setup_handlers
+
 
 async def ban_check_command(client: Client, msg: types.Message):
     db = Database(msg.from_user.id)
