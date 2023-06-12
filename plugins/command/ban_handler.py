@@ -92,6 +92,7 @@ async def unban_handler(client: Client, msg: types.Message):
             parse_mode=enums.ParseMode.HTML
         )
 
+
 async def check_banned_handler(client: Client, msg: types.Message):
     if re.search(r"^[\/]check_banned(\s|\n)*$", msg.text):
         return await msg.reply_text(
@@ -99,16 +100,16 @@ async def check_banned_handler(client: Client, msg: types.Message):
             quote=True,
             parse_mode=enums.ParseMode.HTML
         )
-    if not (x := re.search(r"^[\/]check_banned(\s|\n)*(\d+|\@\w+)", msg.text)):
+    if not (x := re.search(r"^[\/]check_banned(\s|\n)*(@?\w+)", msg.text)):
         return await msg.reply_text(
             text="<b>Cara penggunaan check_banned</b>\n\n<code>/check_banned id_user</code>\n<code>/check_banned @username</code>\n\nContoh :\n<code>/check_banned 121212021</code>\n<code>/check_banned @john_doe</code>",
             quote=True,
             parse_mode=enums.ParseMode.HTML
         )
     target = x[2]
-    db = Database(int(target))
-    if await db.cek_user_didatabase():
-        member = db.get_data_pelanggan()
+    db = Database()
+    if await db.cek_user_didatabase(target):
+        member = db.get_data_pelanggan(target)
         if member.status == 'banned':
             return await msg.reply_text(
                 text=f"<a href='tg://openmessage?user_id={str(target)}'>User</a> <i>terdaftar dalam database dan sedang dibanned</i>\n\nAlasan: {member.reason}",
