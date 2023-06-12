@@ -92,8 +92,3 @@ async def unban_handler(client: Client, msg: types.Message):
             parse_mode=enums.ParseMode.HTML
         )
 
-
-app = Client("my_bot")
-app.add_handler(ban_handler)
-app.add_handler(unban_handler)
-app.run()
