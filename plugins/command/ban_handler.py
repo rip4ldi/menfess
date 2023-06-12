@@ -36,7 +36,10 @@ async def ban_handler(client: Client, msg: types.Message):
     update = 'Alasan berhasil diupdate' if member.status == 'banned' else ''
     text_split = msg.text.split(None, 2)
     alasan = "-" if len(text_split) <= 2 else text_split[2]
-    await db.banned_user(int(target), client.id_bot, alasan)
+        await db.banned_user(int(target), client.id_bot, alasan)
+   # Send ban notification to the main channel
+    await client.send_message(config.channel_1, f"<a href='tg://openmessage?user_id={str(target)}'>User</a> <i>berhasil dibanned</i>\n└Dibanned oleh : <a href='tg://openmessage?user_id={str(config.id_admin)}'>Admin</a>\n\nAlasan: {str(alasan)}\n\n{update}", parse_mode=enums.ParseMode.HTML)
+    
     return await msg.reply_text(
         text=f"<a href='tg://openmessage?user_id={str(target)}'>User</a> <i>berhasil dibanned</i>\n└Dibanned oleh : <a href='tg://openmessage?user_id={str(config.id_admin)}'>Admin</a>\n\nAlasan: {str(alasan)}\n\n{update}", quote=True,
         parse_mode=enums.ParseMode.HTML
