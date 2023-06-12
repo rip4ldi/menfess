@@ -1,5 +1,6 @@
 import config
 from PIL import Image
+from io import BytesIO
 
 from pyrogram import Client, types, enums
 from plugins import Helper, Database
@@ -40,7 +41,19 @@ async def status_handler(client: Client, msg: types.Message):
     pesan += f'├Menfess : {db.menfess}/{config.batas_kirim}\n'
     pesan += f'├Semua Menfess : {db.all_menfess}\n'
     pesan += f'└Bergabung : {db.sign_up}'
-    await msg.reply(pesan, True, enums.ParseMode.HTML)
+    # Load the image
+    image = Image.open('20230508_142127.jpg')  # Replace with the actual image path
+
+    # Create a BytesIO stream to save the image
+    image_stream = BytesIO()
+    image.save(image_stream, format='JPEG')
+    image_stream.seek(0)
+
+    # Send the image first
+    photo_message = await msg.reply_photo(image_stream)
+
+    # Reply with the text caption
+    await photo_message.reply_text(pesan, parse_mode=enums.ParseMode.HTML)
 
 async def statistik_handler(client: Helper, id_bot: int):
     db = Database(client.user_id)
