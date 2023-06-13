@@ -1,4 +1,5 @@
 import config, sys, os, requests
+import config, sys, os, requests
 
 from plugins import Database
 from pyrogram import Client, enums
@@ -9,7 +10,7 @@ data = []
 class Bot(Client):
     def __init__(self):
         super().__init__(
-            'nekomenfessbot',
+            'alterbase_bot',
             api_id=config.api_id,
             api_hash=config.api_hash,
             plugins={
@@ -17,7 +18,6 @@ class Bot(Client):
             },
             bot_token=config.bot_token
         )
-
     async def start(self):
         await super().start()
         bot_me = await self.get_me()
