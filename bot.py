@@ -17,9 +17,10 @@ class Bot(Client):
             },
             bot_token=config.bot_token
         )
-    async def start(self):
-        await super().start()
-        bot_me = await self.get_me()
+     async def start(self):
+    await super().start()
+    await asyncio.gather(self.idle())
+
 
         db = Database(bot_me.id)
         os.system('cls')
