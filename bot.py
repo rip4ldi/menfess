@@ -17,10 +17,10 @@ class Bot(Client):
             },
             bot_token=config.bot_token
         )
-     async def start(self):
-    await super().start()
-    await asyncio.gather(self.idle())
 
+    async def start(self):
+        await super().start()
+        bot_me = await self.get_me()
 
         db = Database(bot_me.id)
         os.system('cls')
@@ -36,7 +36,7 @@ class Bot(Client):
                 await self.export_chat_invite_link(config.channel_1)
             except:
                 print(f'Harap periksa kembali ID [ {config.channel_1} ] pada channel 1')
-                print('Pastikan bot telah dimasukan kedalam channel dan menjadi admin')
+                print('Pyastikan bot telah dimasukan kedalam channel dan menjadi admin')
                 print('-> Bot terpaksa dihentikan')
                 sys.exit()
         if config.channel_2:
@@ -70,7 +70,7 @@ class Bot(Client):
     
     async def stop(self):
         await super().stop()
-        print('GRRRR...BOT BERHASIL DIHENTIKAN')
+        print('GRRRR...BOT BERHASIL DIHENTIKAN'
     
     async def kirim_pesan(self, x: str):
         db = Database(config.id_admin).get_pelanggan()
