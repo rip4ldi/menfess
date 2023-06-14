@@ -7,7 +7,7 @@ from plugins import Database, Helper
         
 
 async def send_with_pic_handler(client: Client, msg: types.Message, key: str, hastag: list):
-    db = Database(msg.from_user.id).get_data_pelanggan()
+    db = Database(msg.from_user.id)
     helper = Helper(client, msg)
     user = db.get_data_pelanggan()
     if msg.text or msg.photo or msg.video or msg.voice:
@@ -40,7 +40,7 @@ async def send_with_pic_handler(client: Client, msg: types.Message, key: str, ha
             pictur = config.pic_bfrent
         elif user.status == 'moans boy':
             picture = config.pic_moansboy
-        elif user.status == 'member' and user.id == '5505030378':  # Check if user.user_id is '5505030378'
+        elif user.status == 'member' and user.from_user.id == '5505030378':  # Check if user.user_id is '5505030378'
             picture = config.pic_rekberboy
 
             
