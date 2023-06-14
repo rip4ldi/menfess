@@ -3,6 +3,14 @@ import re
 
 from pyrogram import Client, types, enums
 from plugins import Database, Helper
+class data_pelanggan:
+    def __init__(self, user_id, menfess, all_menfess, coin, status):
+        self.user_id = user_id
+        self.menfess = menfess
+        self.all_menfess = all_menfess
+        self.coin = coin
+        self.status = status
+        
 
 async def send_with_pic_handler(client: Client, msg: types.Message, key: str, hastag: list):
     db = Database(msg.from_user.id)
