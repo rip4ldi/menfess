@@ -1,4 +1,4 @@
-classimport config
+import config
 import re
 
 from pyrogram import Client, types, enums
