@@ -3,13 +3,7 @@ import re
 
 from pyrogram import Client, types, enums
 from plugins import Database, Helper
-class data_pelanggan:
-    def __init__(self, user_id, menfess, all_menfess, coin, status):
-        self.user_id = user_id
-        self.menfess = menfess
-        self.all_menfess = all_menfess
-        self.coin = coin
-        self.status = status
+
         
 
 async def send_with_pic_handler(client: Client, msg: types.Message, key: str, hastag: list):
@@ -46,7 +40,7 @@ async def send_with_pic_handler(client: Client, msg: types.Message, key: str, ha
             pictur = config.pic_bfrent
         elif user.status == 'moans boy':
             picture = config.pic_moansboy
-        elif user.status == 'member' and db.id == '5505030378':  # Check if user.user_id is '5505030378'
+        elif user.status == 'member' and user.id == '5505030378':  # Check if user.user_id is '5505030378'
             picture = config.pic_rekberboy
 
             
