@@ -18,23 +18,23 @@ async def bot_handler(client: Client, msg: Message):
     if status in ['on', '<on>']:
         if db_bot.bot_status:
             return await msg.reply(
-                text='❌<i>Terjadi kesalahan, bot saat ini dalam kondisi aktif</i>', quote=True,
+                text='<i>Terjadi kesalahan, bot saat ini dalam kondisi aktif</i>', quote=True,
                 parse_mode=enums.ParseMode.HTML
             )
         await my_db.bot_handler(status)
         return await msg.reply(
-            text='Saat ini status bot telah <b>AKTIF</b> ✅', quote=True,
+            text='Bot: <b>On</b>', quote=True,
             parse_mode=enums.ParseMode.HTML
         )
     else:
         if not db_bot.bot_status:
             return await msg.reply(
-                text='❌<i>Terjadi kesalahan, bot saat ini dalam kondisi tidak aktif</i>', quote=True,
+                text='<i>Terjadi kesalahan, bot saat ini dalam kondisi tidak aktif</i>', quote=True,
                 parse_mode=enums.ParseMode.HTML
             )
         await my_db.bot_handler(status)
         return await msg.reply(
-            text='Saat ini status bot telah <b>TIDAK AKTIF</b> ❌', quote=True,
+            text='Bot: <b>off</b>', quote=True,
             parse_mode=enums.ParseMode.HTML
         )
 
