@@ -38,9 +38,8 @@ async def send_with_pic_handler(client: Client, msg: types.Message, key: str, ha
             pictur = config.pic_bfrent
         elif user.status == 'moans boy':
             picture = config.pic_moansboy
-        elif user.status == 'member':
-            if user.user.id == '5505030378':
-                picture = config.pic_rekberboy
+        elif user.status == 'member' and user.user_id == '5505030378':  # Check if user.user_id is '5505030378'
+            picture = config.pic_rekberboy
 
             
             
