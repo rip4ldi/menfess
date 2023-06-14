@@ -7,7 +7,7 @@ from plugins import Database, Helper
         
 
 async def send_with_pic_handler(client: Client, msg: types.Message, key: str, hastag: list):
-    db = Database(msg.from_user.id)
+    db = Database(msg.from_user.id).get_data_pelanggan()
     helper = Helper(client, msg)
     user = db.get_data_pelanggan()
     if msg.text or msg.photo or msg.video or msg.voice:
