@@ -79,7 +79,7 @@ async def unban_handler(client: Client, msg: types.Message):
         await db.unban_user(int(target), client.id_bot)
 
         # Send notification to channel_1
-        notification_text = f"User <a href='tg://user?id={str(target)}'> {await get_user_mention(target, client)} </a> dengan Id:<code> {target}</code> sudah di unban. \n\noleh : <a href='tg://openmessage?user_id={str(config.id_admin)}'>{admin_mention}</a>""
+        notification_text = f"User <a href='tg://user?id={str(target)}'> {await get_user_mention(target, client)} </a> dengan Id:<code> {target}</code> sudah di unban. \n\noleh : <a href='tg://openmessage?user_id={str(config.id_admin)}'>{admin_mention}</a>"
         await client.send_message(config.channel_1, notification_text)
 
         admin_mention = await get_user_mention(config.id_admin, client)
