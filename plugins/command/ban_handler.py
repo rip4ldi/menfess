@@ -1,4 +1,4 @@
-import config
+ import config
 import re
 
 from pyrogram import Client, enums, types
@@ -106,3 +106,4 @@ async def get_mention_name(user_id: str, client: Client):
     user_info = await client.get_users(int(user_id))
     mention_name = user_info.first_name if not user_info.last_name else f"{user_info.first_name} {user_info.last_name}"
     return mention_name
+
