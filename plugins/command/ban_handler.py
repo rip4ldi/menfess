@@ -84,7 +84,7 @@ async def unban_handler(client: Client, msg: types.Message):
         await client.send_message(config.channel_1, notification_text)
 
         return await msg.reply_text(
-            text=f"{await get_user_mention(target, client)} <i>berhasil diunbanned</i>\n└Diunbanned oleh : {admin_mention}\n\nAlasan: {str(alasan)}",
+            text=f"{await get_user_mention(target, client)} <i>berhasil diunbanned</i>\n└Diunbanned oleh : {admin_mention}",
             quote=True,
             parse_mode=enums.ParseMode.HTML
         )
