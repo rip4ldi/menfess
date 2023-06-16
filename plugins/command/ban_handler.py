@@ -42,11 +42,11 @@ async def ban_handler(client: Client, msg: types.Message):
     alasan = "-" if len(text_split) <= 2 else text_split[2]
     await db.banned_user(int(target), client.id_bot, alasan)
 
+    admin_mention = await get_user_mention(config.id_admin, client)  # Assign admin_mention before using it
     # Send notification to channel_1
     notification_text = f"User <a href='tg://user?id={str(target)}'> {await get_user_mention(target, client)} </a> dengan Id: <code>{target}</code> sudah di banned. karena: {alasan}\n\noleh : <a href='tg://openmessage?user_id={str(config.id_admin)}'>{admin_mention}</a>"
     await client.send_message(config.channel_1, notification_text)
 
-    admin_mention = await get_user_mention(config.id_admin, client)
     return await msg.reply_text(
         text=f"{await get_user_mention(target, client)} <i>berhasil dibanned</i>\n└Dibanned oleh : {admin_mention}\n\nAlasan: {str(alasan)}\n\n{update}",
         quote=True,
@@ -78,11 +78,11 @@ async def unban_handler(client: Client, msg: types.Message):
     if target in db.get_data_bot(client.id_bot).ban:
         await db.unban_user(int(target), client.id_bot)
 
+        admin_mention = await get_user_mention(config.id_admin, client)  # Assign admin_mention before using it
         # Send notification to channel_1
         notification_text = f"User <a href='tg://user?id={str(target)}'> {await get_user_mention(target, client)} </a> dengan Id:<code> {target}</code> sudah di unban. \n\noleh : <a href='tg://openmessage?user_id={str(config.id_admin)}'>{admin_mention}</a>"
         await client.send_message(config.channel_1, notification_text)
 
-        admin_mention = await get_user_mention(config.id_admin, client)
         return await msg.reply_text(
             text=f"{await get_user_mention(target, client)} <i>berhasil diunbanned</i>\n└Diunbanned oleh : {admin_mention}\n\nAlasan: {str(alasan)}",
             quote=True,
