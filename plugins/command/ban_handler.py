@@ -48,7 +48,7 @@ async def ban_handler(client: Client, msg: types.Message):
     await client.send_message(config.channel_1, notification_text)
 
     return await msg.reply_text(
-        text=f"{await get_user_mention(target, client)} <i>berhasil dibanned</i>\n└Dibanned oleh : {admin_mention}\n\nAlasan: {str(alasan)}\n\n{update}",
+        text=f"<a href='tg://user?id={str(target)}'> {await get_user_mention(target, client)} </a> <i>berhasil dibanned</i>\n└Dibanned oleh : <a href='tg://openmessage?user_id={str(config.id_admin)}'>{admin_mention}</a>\n\nAlasan: {str(alasan)}\n\n{update}",
         quote=True,
         parse_mode=enums.ParseMode.HTML
     )
@@ -84,7 +84,7 @@ async def unban_handler(client: Client, msg: types.Message):
         await client.send_message(config.channel_1, notification_text)
 
         return await msg.reply_text(
-            text=f"{await get_user_mention(target, client)} <i>berhasil diunbanned</i>\n└Diunbanned oleh : {admin_mention}",
+            text=f"<a href='tg://user?id={str(target)}'> {await get_user_mention(target, client)} </a> <i>berhasil diunbanned</i>\n└Diunbanned oleh : <a href='tg://openmessage?user_id={str(config.id_admin)}'>{admin_mention}</a>",
             quote=True,
             parse_mode=enums.ParseMode.HTML
         )
@@ -106,4 +106,3 @@ async def get_mention_name(user_id: str, client: Client):
     user_info = await client.get_users(int(user_id))
     mention_name = user_info.first_name if not user_info.last_name else f"{user_info.first_name} {user_info.last_name}"
     return mention_name
-
