@@ -88,27 +88,13 @@ async def list_ban_handler(helper: Helper, id_bot: int):
     db = Database(helper.user_id).get_data_bot(id_bot)
     if len(db.ban) == 0:
         return await helper.message.reply_text('<i>Tidak ada user dibanned saat ini</i>', True, enums.ParseMode.HTML)
-
-    def get_mention_name(user_id):
-        mention_names = []
-        for user_id in db.ban:
-            user = await client.get_chat(user_id)
-            mention_name = user.first_name
-            if user.last_name:
-                mention_name += " " + user.last_name
-            mention_names.append(mention_name)
-        return mention_names
-
-    mention_names = await get_mention_name(helper.user_id)
     pesan = "<b>Daftar banned</b>\n"
     for ind, i in enumerate(db.ban, start=1):
         pesan += (
             f"• ID: {str(i)} | <a href='tg://openmessage?user_id={str(i)}'>( {str(ind)}"
-            + f" )</a> - {mention_names[ind-1]}\n"
+            + " )</a>\n"
         )
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
-
-
 
 async def gagal_kirim_handler(client: Client, msg: types.Message):
     anu = Helper(client, msg)
