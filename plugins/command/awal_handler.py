@@ -91,8 +91,11 @@ async def list_ban_handler(helper: Helper, id_bot: int):
     pesan = "<b>Daftar banned</b>\n"
     for ind, i in enumerate(db.ban, start=1):
         user = await helper.client.get_users(i)
-        mention = user.mention if user.username else f"<a href='tg://user?id={user.id}'>{user.first_name}</a>"
-        pesan += f"• ID: {str(i)} | {mention} ( {str(ind)} )\n"
+        mention = user.mention if user else f'<code>{i}</code>'
+        pesan += (
+            f"• ID: {str(i)} | {mention} ( {str(ind)})"
+            + "\n"
+        )
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
 
 
