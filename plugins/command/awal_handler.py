@@ -90,11 +90,12 @@ async def list_ban_handler(helper: Helper, id_bot: int):
         return await helper.message.reply_text('<i>Tidak ada user dibanned saat ini</i>', True, enums.ParseMode.HTML)
     pesan = "<b>Daftar banned</b>\n"
     for ind, i in enumerate(db.ban, start=1):
-        pesan += (
-            f"• ID: {str(i)} | <a href='tg://openmessage?user_id={str(i)}'>( {str(ind)}"
+        user = await helper.client.get_users(i)
+        mention = user.mention if user.username else f"<a href='tg://user?id={user.id}'>{user.first_name}</a>"
+        pesan += f"• ID: <code>{str(i)}</code> |<a href='tg://openmessage?user_id={str(i)}'>{mention} </a>( {str(ind)}"
             + " )</a>\n"
-        )
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
+
 
 async def gagal_kirim_handler(client: Client, msg: types.Message):
     anu = Helper(client, msg)
