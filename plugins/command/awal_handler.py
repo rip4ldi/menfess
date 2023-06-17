@@ -3,6 +3,7 @@ from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 
 from pyrogram import Client, types, enums
+import pyrogram
 from plugins import Helper, Database
 
 async def start_handler(client: Client, msg: types.Message):
