@@ -90,8 +90,11 @@ async def list_ban_handler(helper: Helper, id_bot: int):
         return await helper.message.reply_text('<i>Tidak ada user dibanned saat ini</i>', True, enums.ParseMode.HTML)
     pesan = "<b>Daftar banned</b>\n"
     for ind, i in enumerate(db.ban, start=1):
-        user = await helper.client.get_users(i)
-        mention = user.mention if user else f'<code>{i}</code>'
+        try:
+            user = await helper.client.get_users(i)
+            mention = user.mention if user else f'<code>{i}</code>'
+        except pyrogram.errors.exceptions.bad_request_400.PeerIdInvalid:
+            mention = f'<code>{i}</code>'
         pesan += (
             f"• ID: {str(i)} | {mention} ( {str(ind)})"
             + "\n"
