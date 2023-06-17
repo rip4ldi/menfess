@@ -84,14 +84,14 @@ async def list_admin_handler(helper: Helper, id_bot: int):
             )
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
 
-
 async def list_ban_handler(helper: Helper, id_bot: int):
     db = Database(helper.user_id).get_data_bot(id_bot)
     if len(db.ban) == 0:
         return await helper.message.reply_text('<i>Tidak ada user dibanned saat ini</i>', True, enums.ParseMode.HTML)
     pesan = "<b>Daftar banned</b>\n"
     for ind, i in enumerate(db.ban, start=1):
-        user = await helper.get_member(i)
+        chat_member = await helper.client.get_chat_member(helper.message.chat.id, i)
+        user = chat_member.user if chat_member else None
         mention_name = user.mention if user else f'Unknown User ({str(i)})'
         pesan += (
             f"• ID: {str(i)} | {mention_name}\n"
