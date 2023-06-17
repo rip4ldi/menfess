@@ -84,17 +84,29 @@ async def list_admin_handler(helper: Helper, id_bot: int):
             )
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
 
+
 async def list_ban_handler(helper: Helper, id_bot: int):
     db = Database(helper.user_id).get_data_bot(id_bot)
     if len(db.ban) == 0:
         return await helper.message.reply_text('<i>Tidak ada user dibanned saat ini</i>', True, enums.ParseMode.HTML)
     pesan = "<b>Daftar banned</b>\n"
     for ind, i in enumerate(db.ban, start=1):
-        pesan += (
-            f"• ID: {str(i)} | <a href='tg://openmessage?user_id={str(i)}'>( {str(ind)}"
-            + " )</a>\n"
-        )
+        user = await helper.client.get_users(i)
+        if user:
+            first_name = user.first_name
+            last_name = user.last_name
+            fullname = f'{first_name} {last_name}' if last_name else first_name
+            pesan += (
+                f"• ID: {str(i)} | Name: {fullname} | <a href='tg://openmessage?user_id={str(i)}'>( {str(ind)}"
+                + " )</a>\n"
+            )
+        else:
+            pesan += (
+                f"• ID: {str(i)} | Name: Not Available | <a href='tg://openmessage?user_id={str(i)}'>( {str(ind)}"
+                + " )</a>\n"
+            )
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
+
 
 async def gagal_kirim_handler(client: Client, msg: types.Message):
     anu = Helper(client, msg)
