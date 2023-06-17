@@ -3,7 +3,6 @@ from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 
 from pyrogram import Client, types, enums
-import pyrogram
 from plugins import Helper, Database
 
 async def start_handler(client: Client, msg: types.Message):
@@ -91,18 +90,11 @@ async def list_ban_handler(helper: Helper, id_bot: int):
         return await helper.message.reply_text('<i>Tidak ada user dibanned saat ini</i>', True, enums.ParseMode.HTML)
     pesan = "<b>Daftar banned</b>\n"
     for ind, i in enumerate(db.ban, start=1):
-        try:
-            user = await helper.client.get_users(i)
-            mention = user.mention if user else f'<code>{i}</code>'
-        except pyrogram.errors.exceptions.bad_request_400.PeerIdInvalid:
-            mention = f'<code>{i}</code>'
         pesan += (
-            f"• ID: {str(i)} | {mention} ( {str(ind)})"
-            + "\n"
+            f"• ID: {str(i)} | <a href='tg://openmessage?user_id={str(i)}'>( {str(ind)}"
+            + " )</a>\n"
         )
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
-
-
 
 async def gagal_kirim_handler(client: Client, msg: types.Message):
     anu = Helper(client, msg)
