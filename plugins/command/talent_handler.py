@@ -24,14 +24,20 @@ async def talent_handler(client: Client, msg: types.Message):
             break
         for j in top_id:
             if talent[j]['rate'] == i:
-                pesan += f"<b> {str(index)}.</b> {talent[j]['username']} ➜ {str(talent[j]['rate'])} 🍓\n"
+                pesan += f"<b>{str(index)}.</b> {talent[j]['username']} ➜ {str(talent[j]['rate'])} 🍓\n"
                 top_id.remove(j)
                 index += 1
 
-    pesan += f"\nmenampilkan {config.batas_talent} talent dengan ratinf tertinggi\n"
-    pesan += "berikan rating untuk talent favoritmu dengan perintah <code>/rate id</code>\n"
-    pesan += "contoh <code>/rate 37339222</code>"
+    if index > config.batas_talent:
+        for j in top_id:
+            pesan += f"<b>{str(index)}.</b> {talent[j]['username']} ➜ {str(talent[j]['rate'])} 🍓\n"
+            index += 1
+
+    pesan += f"\nMenampilkan {index - 1} talent dengan rating tertinggi\n"
+    pesan += "Berikan rating untuk talent favoritmu dengan perintah <code>/rate id</code>\n"
+    pesan += "Contoh <code>/rate 37339222</code>"
     await msg.reply(pesan, True, enums.ParseMode.HTML)
+
 
 async def tambah_talent_handler(client: Client, msg: types.Message):
     helper = Helper(client, msg)
