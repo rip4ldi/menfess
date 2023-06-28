@@ -110,9 +110,31 @@
       "description": "gambar fwb boy",
       "value": "https://telegra.ph/file/387bdabb03deaf94fa4e9.jpg"
     },
+    "PIC_TALENTGIRL"
+    "value": "https://telegra.ph/file/95801451d752f089f8e1e.jpg"
+    },
     "PIC_GIRL": {
       "description": "gambar fwb girl",
       "value": "https://telegra.ph/file/2bc2dc1fad8e33cf69e6d.jpg"
+    },
+  "PIC_DADDYSUGAR": {
+      "value": "https://telegra.ph/file/14ca710511333621be61d.jpg"
+    },
+  "PIC_MOANSGIRL": {
+      "value": "https://telegra.ph/file/10232ac2404b3e822f99d.jpg"
+    },
+  
+  "PIC_MOANSBOY": {
+      "value": "https://telegra.ph/file/90359cf42550732058d20.jpg"
+    },
+  "PIC_GFRENT": {
+      "value": "https://telegra.ph/file/432e8cb26179ade6eba70.jpg"
+    },
+  "PIC_BFRENT": {
+      "value": "https://telegra.ph/file/e0dc732430d9b1b0cbfa1.jpg"
+    },
+  "PIC_OWNER": {
+      "value": "https://telegra.ph/file/f58b957f34a978524f07a.jpg"
     },
     "PESAN_JOIN": {
       "description": "pesan join grup, atau akses ditolak",
