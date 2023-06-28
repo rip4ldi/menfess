@@ -1,13 +1,14 @@
 {
-  "name": "File Sharing Man",
-  "description": "BOT Multi Force Subs File Sharing Bot berguna untuk menyimpan file dan dapat diakses melalui link khusus",
-  "stack": "heroku-22",
+  "name": "NekoMenfess",
+  "description": "mengirim pesan ke channel telegram secara anonymous",
   "keywords": [
     "telegram",
-    "file",
-    "sharing"
+    "menfess",
+    "fwb"
+
   ],
-  "logo": "https://telegra.ph/file/9dc4e335feaaf6a214818.jpg",
+  "repository": "https://github.com/nekolocal/nekomenfess/tree/main",
+  "logo": "https://telegra.ph/file/2d46007dd7d22645c4ec3.jpg",
   "env": {
     "BOT_TOKEN": {
       "description": "Masukkan token bot kamu, didapatkan dari @Botfather",
@@ -148,14 +149,6 @@
       "value": "{mention}, pesan mu gagal terkirim silahkan gunakan hastag:\n\n#NekoBoy / #NekoGirl untuk Mencari Pasangan, Teman , Partner dll\n#NekoAsk untuk Bertanya\n#NekoStory untuk Berbagi Cerita\n#NekoSpill untuk Spill Masalah\n#NekoFind untuk Mencari Pasangan, Teman, Partner dll"
     }
   },
-  "addons": [
-    {
-    "plan": "heroku-postgresql",
-      "options": {
-        "version": "12"
-      }
-    }
-  ],
   "buildpacks": [
     {
       "url": "heroku/python"
@@ -167,3 +160,4 @@
       "size": "eco"
     }
   }
+}
