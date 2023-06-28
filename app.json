@@ -18,7 +18,7 @@
       "value": ""
     },
     "API_ID": {
-      "description": "app id kamu, didapatkan dari my.telegram.org",
+      "description": "app id kmau, didapatkan dari my.telegram.org",
       "value": ""
     },
     "DB_URL": {
@@ -110,7 +110,6 @@
       "value": "https://telegra.ph/file/387bdabb03deaf94fa4e9.jpg"
     },
     "PIC_TALENTGIRL": {
-      "description": "gambar fwb talent girl",
       "value": "https://telegra.ph/file/95801451d752f089f8e1e.jpg"
     },
     "PIC_GIRL": {
@@ -118,27 +117,21 @@
       "value": "https://telegra.ph/file/2bc2dc1fad8e33cf69e6d.jpg"
     },
     "PIC_DADDYSUGAR": {
-      "description": "gambar fwb daddy sugar",
       "value": "https://telegra.ph/file/14ca710511333621be61d.jpg"
     },
     "PIC_MOANSGIRL": {
-      "description": "gambar fwb moans girl",
       "value": "https://telegra.ph/file/10232ac2404b3e822f99d.jpg"
     },
     "PIC_MOANSBOY": {
-      "description": "gambar fwb moans boy",
       "value": "https://telegra.ph/file/90359cf42550732058d20.jpg"
     },
     "PIC_GFRENT": {
-      "description": "gambar fwb girl friend rent",
       "value": "https://telegra.ph/file/432e8cb26179ade6eba70.jpg"
     },
     "PIC_BFRENT": {
-      "description": "gambar fwb boy friend rent",
       "value": "https://telegra.ph/file/e0dc732430d9b1b0cbfa1.jpg"
     },
     "PIC_OWNER": {
-      "description": "gambar owner bot",
       "value": "https://telegra.ph/file/f58b957f34a978524f07a.jpg"
     },
     "PESAN_JOIN": {
@@ -157,6 +150,14 @@
   "buildpacks": [
     {
       "url": "heroku/python"
+    }
+  ],
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "12"
+      }
     }
   ],
   "formation": {
