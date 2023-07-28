@@ -85,12 +85,6 @@ async def list_admin_handler(helper: Helper, id_bot: int):
             )
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
 
-@Bot.on_callback_query()
-async def on_callback_query(client: Client, query: CallbackQuery):
-    data = query.data.split('_')  # Membagi data callback menjadi beberapa bagian
-    if data[0] == 'list_ban' and len(data) == 3:  # Menangani callback dari tombol 'Next'
-        await list_ban_handler(helper, int(data[2]), int(data[1]))
-    # Tambahkan kode untuk menangani callback tombol lainnya jika ada
 
 def divide_list_into_chunks(lst, chunk_size):
     for i in range(0, len(lst), chunk_size):
