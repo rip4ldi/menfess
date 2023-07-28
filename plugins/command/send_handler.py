@@ -1,7 +1,6 @@
 import config
 import re
 
-from pyrogram.types import User
 from pyrogram import Client, types, enums
 from plugins import Database, Helper
 
@@ -11,11 +10,6 @@ async def send_with_pic_handler(client: Client, msg: types.Message, key: str, ha
     db = Database(msg.from_user.id)
     helper = Helper(client, msg)
     user = db.get_data_pelanggan()
-
-    # Pengecekan apakah pengguna adalah bot itu sendiri
-    if isinstance(msg.from_user, User) and msg.from_user.username != client.get_me().username:
-        return await msg.reply('Anda hanya dapat mengirim menfess menggunakan username Anda sendiri.', quote=True)
-
     if msg.text or msg.photo or msg.video or msg.voice:
         menfess = user.menfess
         all_menfess = user.all_menfess
@@ -69,17 +63,12 @@ async def send_with_pic_handler(client: Client, msg: types.Message, key: str, ha
     else:
         await msg.reply('media yang didukung photo, video dan voice')
 
-            async def send_menfess_handler(client: Client, msg: types.Message):
+async def send_menfess_handler(client: Client, msg: types.Message):
     helper = Helper(client, msg)
     db = Database(msg.from_user.id)
     db_user = db.get_data_pelanggan()
     db_bot = db.get_data_bot(client.id_bot).kirimchannel
-
-    # Pengecekan apakah pengguna adalah bot itu sendiri
-    if isinstance(msg.from_user, User) and msg.from_user.username != client.get_me().username:
-        return await msg.reply('Anda hanya dapat mengirim menfess menggunakan username Anda sendiri.', quote=True)
-
-        if msg.text or msg.photo or msg.video or msg.voice:
+    if msg.text or msg.photo or msg.video or msg.voice:
         if msg.photo and not db_bot.photo:
             if db_user.status in ['member', 'talent']:
                 return await msg.reply('Tidak bisa mengirim photo, karena sedang dinonaktifkan oleh admin', True)
@@ -119,11 +108,6 @@ async def transfer_coin_handler(client: Client, msg: types.Message):
         err = "<i>perintah salah /tf_coin [jmlh_coin]</i>" if msg.reply_to_message else "<i>perintah salah /tf_coin [id_user] [jmlh_coin]</i>"
         return await msg.reply(err, True)
     helper = Helper(client, msg)
-
-    # Pengecekan apakah pengguna adalah bot itu sendiri
-    if isinstance(msg.from_user, User) and msg.from_user.username != client.get_me().username:
-        return await msg.reply('Anda hanya dapat melakukan transfer coin menggunakan username Anda sendiri.', quote=True)
-
     if re.search(r"^[\/]tf_coin\s(\d+)(\s(\d+))?", msg.text or msg.caption):
         if x := re.search(
             r"^[\/]tf_coin\s(\d+)(\s(\d+))$", msg.text or msg.caption
@@ -199,4 +183,3 @@ async def transfer_coin_handler(client: Client, msg: types.Message):
                 coin = db_user.coin - config.biaya_kirim
             else:
                 return await msg.reply(f'🙅🏻‍♀️ post gagal terkirim. kamu hari ini telah mengirim ke menfess sebanyak {menfess}/{config.batas_kirim} kali.serta coin mu kurang untuk mengirim menfess diluar batas harian., kamu dapat mengirim menfess kembali pada hari esok.\n\n waktu reset jam 1 pagi. \n\n\n\n Info: Topup Coin Hanya ke @OwnNeko', quote=True)
-
