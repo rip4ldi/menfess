@@ -2,7 +2,7 @@ import config
 from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO 
 
-from pyrogram import Client, types, enums, InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram import Client, types, enums
 from plugins import Helper, Database
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
