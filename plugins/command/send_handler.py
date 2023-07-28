@@ -1,6 +1,7 @@
 import config
 import re
 
+from pyrogram.types import User
 from pyrogram import Client, types, enums
 from plugins import Database, Helper
 
