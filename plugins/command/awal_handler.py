@@ -91,7 +91,6 @@ def divide_list_into_chunks(lst, chunk_size):
         yield lst[i:i + chunk_size]
 
 async def list_ban_handler(helper: Helper, id_bot: int, page=1):
-async def list_ban_handler(helper: Helper, id_bot: int, page=1):
     db = Database(helper.user_id).get_data_bot(id_bot)
     banned_users = list(db.ban)
     per_page = 10
