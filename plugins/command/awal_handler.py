@@ -106,12 +106,15 @@ async def list_ban_handler(helper: Helper, id_bot: int, page: int = 1):
     start_idx = (page - 1) * banned_per_page
     end_idx = min(start_idx + banned_per_page, len(banned_users))
 
+    # Konversi irisan daftar menjadi daftar yang dapat dienumerasi
+    banned_users_slice = list(banned_users[start_idx:end_idx])
+
     # Siapkan pesan awal untuk daftar banned
     pesan = "<b>Daftar banned (Halaman {}/{})</b>\n".format(page, total_pages)
     pesan += "<pre>"
 
     # Tambahkan daftar banned untuk halaman tertentu ke dalam pesan
-    for ind, i in enumerate(banned_users[start_idx:end_idx], start=start_idx + 1):
+    for ind, i in enumerate(banned_users_slice, start=start_idx + 1):
         pesan += f"• ID: {str(i)} | <a href='tg://openmessage?user_id={str(i)}'>( {str(ind)}"
         pesan += " )</a>\n"
 
@@ -127,7 +130,6 @@ async def list_ban_handler(helper: Helper, id_bot: int, page: int = 1):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML, reply_markup=reply_markup)
-
 
 
 async def gagal_kirim_handler(client: Client, msg: types.Message):
