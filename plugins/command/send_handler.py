@@ -115,13 +115,15 @@ async def get_link():
     return f"https://t.me/c/{anu}/"
 
 async def transfer_coin_handler(client: Client, msg: types.Message):
-            if isinstance(msg.from_user, User) and msg.from_user.username != client.get_me().username:
-        return await msg.reply('Anda hanya dapat melakukan transfer coin menggunakan username Anda sendiri.', quote=True)
-
     if re.search(r"^[\/]tf_coin(\s|\n)*$", msg.text or msg.caption):
         err = "<i>perintah salah /tf_coin [jmlh_coin]</i>" if msg.reply_to_message else "<i>perintah salah /tf_coin [id_user] [jmlh_coin]</i>"
         return await msg.reply(err, True)
     helper = Helper(client, msg)
+
+    # Pengecekan apakah pengguna adalah bot itu sendiri
+    if isinstance(msg.from_user, User) and msg.from_user.username != client.get_me().username:
+        return await msg.reply('Anda hanya dapat melakukan transfer coin menggunakan username Anda sendiri.', quote=True)
+
     if re.search(r"^[\/]tf_coin\s(\d+)(\s(\d+))?", msg.text or msg.caption):
         if x := re.search(
             r"^[\/]tf_coin\s(\d+)(\s(\d+))$", msg.text or msg.caption
