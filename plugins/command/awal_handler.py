@@ -85,6 +85,10 @@ async def list_admin_handler(helper: Helper, id_bot: int):
             )
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
 
+def divide_list_into_chunks(lst, chunk_size):
+    for i in range(0, len(lst), chunk_size):
+        yield lst[i:i + chunk_size]
+
 async def list_ban_handler(helper: Helper, id_bot: int, page=1):
     db = Database(helper.user_id).get_data_bot(id_bot)
     banned_users = db.ban
@@ -95,7 +99,7 @@ async def list_ban_handler(helper: Helper, id_bot: int, page=1):
 
     start_index = (page - 1) * per_page
     end_index = start_index + per_page
-    current_page_users = tuple(banned_users)[start_index:end_index]
+    current_page_users = banned_users[start_index:end_index]
 
     pesan = "<b>Daftar banned</b>\n"
     for ind, i in enumerate(current_page_users, start=start_index + 1):
@@ -114,12 +118,6 @@ async def list_ban_handler(helper: Helper, id_bot: int, page=1):
     markup = InlineKeyboardMarkup(inline_keyboard)
 
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML, reply_markup=markup)
-
-async def inline_button_handler(client: Client, callback_query: types.CallbackQuery):
-    data = callback_query.data.split('_')
-    if data[0] == 'list_ban':
-        await list_ban_handler(Helper(client, callback_query.message), int(data[2]), int(data[1]))
-    # Add other callback handlers here if needed
 
 
 
