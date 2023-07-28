@@ -85,53 +85,20 @@ async def list_admin_handler(helper: Helper, id_bot: int):
             )
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
 
-
-async def list_ban_handler(helper: Helper, id_bot: int, page: int = 1):
+async def list_ban_handler(helper: Helper, id_bot: int):
     db = Database(helper.user_id).get_data_bot(id_bot)
-    banned_users = db.ban
-
-    if not banned_users:
+    if len(db.ban) == 0:
         return await helper.message.reply_text('<i>Tidak ada user dibanned saat ini</i>', True, enums.ParseMode.HTML)
-
-    # Jumlah daftar banned yang ingin ditampilkan dalam satu pesan
-    banned_per_page = 5
-
-    # Hitung total halaman yang dibutuhkan untuk menampilkan semua banned user
-    total_pages = (len(banned_users) - 1) // banned_per_page + 1
-
-    # Pastikan nomor halaman valid (di antara 1 dan total_pages)
-    page = max(1, min(page, total_pages))
-
-    # Hitung indeks awal dan akhir daftar banned untuk halaman yang ditentukan
-    start_idx = (page - 1) * banned_per_page
-    end_idx = min(start_idx + banned_per_page, len(banned_users))
-
-    # Konversi irisan daftar menjadi daftar yang dapat dienumerasi
-    banned_users_slice = list(banned_users[start_idx:end_idx])
-
-    # Siapkan pesan awal untuk daftar banned
-    pesan = "<b>Daftar banned (Halaman {}/{})</b>\n".format(page, total_pages)
-    pesan += "<pre>"
-
-    # Tambahkan daftar banned untuk halaman tertentu ke dalam pesan
-    for ind, i in enumerate(banned_users_slice, start=start_idx + 1):
-        pesan += f"• ID: {str(i)} | <a href='tg://openmessage?user_id={str(i)}'>( {str(ind)}"
-        pesan += " )</a>\n"
-
-    pesan += "</pre>"
-
-    # Buat tombol untuk 'Next' dan 'Back'
-    keyboard = []
-    if page > 1:
-        keyboard.append([InlineKeyboardButton("Back", callback_data=f"ban_back_{id_bot}_{page-1}")])
-    if page < total_pages:
-        keyboard.append([InlineKeyboardButton("Next", callback_data=f"ban_next_{id_bot}_{page+1}")])
-
-    reply_markup = InlineKeyboardMarkup(keyboard)
-
-    await helper.message.reply_text(pesan, True, enums.ParseMode.HTML, reply_markup=reply_markup)
+    pesan = "<b>Daftar banned</b>\n"
+    for ind, i in enumerate(db.ban, start=1):
+        pesan += (
+            f"• ID: {str(i)} | <a href='tg://openmessage?user_id={str(i)}'>( {str(ind)}"
+            + " )</a>\n"
+        )
+    await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
 
 
+    
 async def gagal_kirim_handler(client: Client, msg: types.Message):
     anu = Helper(client, msg)
     first_name = msg.from_user.first_name
