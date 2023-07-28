@@ -1,8 +1,8 @@
 import config
 from PIL import Image, ImageFont, ImageDraw
-from io import BytesIO
+from io import BytesIO 
 
-from pyrogram import Client, types, enums
+from pyrogram import Client, types, enums, InlineKeyboardButton, InlineKeyboardMarkup
 from plugins import Helper, Database
 
 async def start_handler(client: Client, msg: types.Message):
