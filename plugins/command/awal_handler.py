@@ -84,17 +84,41 @@ async def list_admin_handler(helper: Helper, id_bot: int):
             )
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
 
-async def list_ban_handler(helper: Helper, id_bot: int):
+def divide_list_into_chunks(lst, chunk_size):
+    for i in range(0, len(lst), chunk_size):
+        yield lst[i:i + chunk_size]
+
+async def list_ban_handler(helper: Helper, id_bot: int, page=1):
     db = Database(helper.user_id).get_data_bot(id_bot)
-    if len(db.ban) == 0:
-        return await helper.message.reply_text('<i>Tidak ada user dibanned saat ini</i>', True, enums.ParseMode.HTML)
+    banned_users = db.ban
+    per_page = 10
+    total_pages = (len(banned_users) + per_page - 1) // per_page
+    if page < 1 or page > total_pages:
+        return await helper.message.reply_text('<i>Halaman tidak valid.</i>', True, enums.ParseMode.HTML)
+
+    current_page_users = list(divide_list_into_chunks(banned_users, per_page))[page - 1]
     pesan = "<b>Daftar banned</b>\n"
-    for ind, i in enumerate(db.ban, start=1):
+    for ind, i in enumerate(current_page_users, start=1 + (page - 1) * per_page):
         pesan += (
             f"• ID: {str(i)} | <a href='tg://openmessage?user_id={str(i)}'>( {str(ind)}"
             + " )</a>\n"
         )
-    await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
+
+    buttons = []
+    if page > 1:
+        buttons.append(InlineKeyboardButton("Back", callback_data=f"list_ban_{page-1}_{id_bot}"))
+    if page < total_pages:
+        buttons.append(InlineKeyboardButton("Next", callback_data=f"list_ban_{page+1}_{id_bot}"))
+    inline_keyboard = list(divide_list_into_chunks(buttons, 2))
+
+    markup = InlineKeyboardMarkup(inline_keyboard)
+
+    await helper.message.reply_text(pesan, True, enums.ParseMode.HTML, reply_markup=markup)
+
+async def inline_button_handler(client: Client, callback_query: types.CallbackQuery):
+    data = callback_query.data.split('_')
+    if data[0] == 'list_ban':
+        await list_ban_handler(Helper(client, callback_query.message), int(data[2]), int(data[1]))
 
 async def gagal_kirim_handler(client: Client, msg: types.Message):
     anu = Helper(client, msg)
