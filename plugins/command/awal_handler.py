@@ -95,7 +95,7 @@ async def list_ban_handler(helper: Helper, id_bot: int, page=1):
 
     start_index = (page - 1) * per_page
     end_index = start_index + per_page
-    current_page_users = banned_users[start_index:end_index]
+    current_page_users = tuple(banned_users)[start_index:end_index]
 
     pesan = "<b>Daftar banned</b>\n"
     for ind, i in enumerate(current_page_users, start=start_index + 1):
@@ -119,7 +119,10 @@ async def inline_button_handler(client: Client, callback_query: types.CallbackQu
     data = callback_query.data.split('_')
     if data[0] == 'list_ban':
         await list_ban_handler(Helper(client, callback_query.message), int(data[2]), int(data[1]))
-        
+    # Add other callback handlers here if needed
+
+
+
 async def gagal_kirim_handler(client: Client, msg: types.Message):
     anu = Helper(client, msg)
     first_name = msg.from_user.first_name
