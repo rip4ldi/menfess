@@ -111,16 +111,18 @@ async def list_ban_handler(helper: Helper, id_bot: int, page=1):
 
     buttons = []
     if page > 1:
-        buttons.append(InlineKeyboardButton("Back", callback_data=f"list_ban_{page-1}_{id_bot}"))
+        buttons.append(InlineKeyboardButton("Back", callback_data=f"list_ban_{id_bot}_{page-1}"))
     if page < total_pages:
-        buttons.append(InlineKeyboardButton("Next", callback_data=f"list_ban_{page+1}_{id_bot}"))
+        buttons.append(InlineKeyboardButton("Next", callback_data=f"list_ban_{id_bot}_{page+1}"))
     inline_keyboard = list(divide_list_into_chunks(buttons, 2))
 
     markup = InlineKeyboardMarkup(inline_keyboard)
 
-    # Menambahkan tombol 'Back' di atas daftar banned
+    # Menambahkan tombol 'Back' dan 'Next' di atas daftar banned
     if page > 1:
         pesan = "Ketikkan '/list_ban' untuk kembali ke halaman sebelumnya.\n" + pesan
+    if page < total_pages:
+        pesan += f"\nKetikkan '/list_ban {page + 1}' untuk melihat daftar banned selanjutnya."
 
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML, reply_markup=markup)
 
