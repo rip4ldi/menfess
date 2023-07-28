@@ -11,6 +11,9 @@ async def send_with_pic_handler(client: Client, msg: types.Message, key: str, ha
     db = Database(msg.from_user.id)
     helper = Helper(client, msg)
     user = db.get_data_pelanggan()
+        if isinstance(msg.from_user, User) and msg.from_user.username != client.get_me().username:
+        return await msg.reply('Anda hanya dapat mengirim menfess menggunakan username Anda sendiri.', quote=True)
+
     if msg.text or msg.photo or msg.video or msg.voice:
         menfess = user.menfess
         all_menfess = user.all_menfess
@@ -69,6 +72,8 @@ async def send_menfess_handler(client: Client, msg: types.Message):
     db = Database(msg.from_user.id)
     db_user = db.get_data_pelanggan()
     db_bot = db.get_data_bot(client.id_bot).kirimchannel
+    if isinstance(msg.from_user, User) and msg.from_user.username != client.get_me().username:
+        return await msg.reply('Anda hanya dapat mengirim menfess menggunakan username Anda sendiri.', quote=True)
     if msg.text or msg.photo or msg.video or msg.voice:
         if msg.photo and not db_bot.photo:
             if db_user.status in ['member', 'talent']:
@@ -105,6 +110,9 @@ async def get_link():
     return f"https://t.me/c/{anu}/"
 
 async def transfer_coin_handler(client: Client, msg: types.Message):
+            if isinstance(msg.from_user, User) and msg.from_user.username != client.get_me().username:
+        return await msg.reply('Anda hanya dapat melakukan transfer coin menggunakan username Anda sendiri.', quote=True)
+
     if re.search(r"^[\/]tf_coin(\s|\n)*$", msg.text or msg.caption):
         err = "<i>perintah salah /tf_coin [jmlh_coin]</i>" if msg.reply_to_message else "<i>perintah salah /tf_coin [id_user] [jmlh_coin]</i>"
         return await msg.reply(err, True)
