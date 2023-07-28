@@ -11,7 +11,9 @@ async def send_with_pic_handler(client: Client, msg: types.Message, key: str, ha
     db = Database(msg.from_user.id)
     helper = Helper(client, msg)
     user = db.get_data_pelanggan()
-        if isinstance(msg.from_user, User) and msg.from_user.username != client.get_me().username:
+
+    # Pengecekan apakah pengguna adalah bot itu sendiri
+    if isinstance(msg.from_user, User) and msg.from_user.username != client.get_me().username:
         return await msg.reply('Anda hanya dapat mengirim menfess menggunakan username Anda sendiri.', quote=True)
 
     if msg.text or msg.photo or msg.video or msg.voice:
@@ -67,14 +69,17 @@ async def send_with_pic_handler(client: Client, msg: types.Message, key: str, ha
     else:
         await msg.reply('media yang didukung photo, video dan voice')
 
-async def send_menfess_handler(client: Client, msg: types.Message):
+            async def send_menfess_handler(client: Client, msg: types.Message):
     helper = Helper(client, msg)
     db = Database(msg.from_user.id)
     db_user = db.get_data_pelanggan()
     db_bot = db.get_data_bot(client.id_bot).kirimchannel
+
+    # Pengecekan apakah pengguna adalah bot itu sendiri
     if isinstance(msg.from_user, User) and msg.from_user.username != client.get_me().username:
         return await msg.reply('Anda hanya dapat mengirim menfess menggunakan username Anda sendiri.', quote=True)
-    if msg.text or msg.photo or msg.video or msg.voice:
+
+        if msg.text or msg.photo or msg.video or msg.voice:
         if msg.photo and not db_bot.photo:
             if db_user.status in ['member', 'talent']:
                 return await msg.reply('Tidak bisa mengirim photo, karena sedang dinonaktifkan oleh admin', True)
