@@ -86,45 +86,17 @@ async def list_admin_handler(helper: Helper, id_bot: int):
     await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
 
 
-def divide_list_into_chunks(lst, chunk_size):
-    for i in range(0, len(lst), chunk_size):
-        yield lst[i:i + chunk_size]
-
-async def list_ban_handler(helper: Helper, id_bot: int, page=1):
+async def list_ban_handler(helper: Helper, id_bot: int):
     db = Database(helper.user_id).get_data_bot(id_bot)
-    banned_users = list(db.ban)
-    per_page = 10
-    total_pages = (len(banned_users) + per_page - 1) // per_page
-    if page < 1 or page > total_pages:
-        return await helper.message.reply_text('<i>Halaman tidak valid.</i>', True, enums.ParseMode.HTML)
-
-    start_index = (page - 1) * per_page
-    end_index = start_index + per_page
-    current_page_users = banned_users[start_index:end_index]
-
+    if len(db.ban) == 0:
+        return await helper.message.reply_text('<i>Tidak ada user dibanned saat ini</i>', True, enums.ParseMode.HTML)
     pesan = "<b>Daftar banned</b>\n"
-    for ind, i in enumerate(current_page_users, start=start_index + 1):
+    for ind, i in enumerate(db.ban, start=1):
         pesan += (
             f"• ID: {str(i)} | <a href='tg://openmessage?user_id={str(i)}'>( {str(ind)}"
             + " )</a>\n"
         )
-
-    buttons = []
-    if page > 1:
-        buttons.append(InlineKeyboardButton("Back", callback_data=f"list_ban_{id_bot}_{page-1}"))
-    if page < total_pages:
-        buttons.append(InlineKeyboardButton("Next", callback_data=f"list_ban_{id_bot}_{page+1}"))
-    inline_keyboard = list(divide_list_into_chunks(buttons, 2))
-
-    markup = InlineKeyboardMarkup(inline_keyboard)
-
-    # Menambahkan tombol 'Back' dan 'Next' di atas daftar banned
-    if page > 1:
-        pesan = "Ketikkan '/list_ban' untuk kembali ke halaman sebelumnya.\n" + pesan
-    if page < total_pages:
-        pesan += f"\nKetikkan '/list_ban {page + 1}' untuk melihat daftar banned selanjutnya."
-
-    await helper.message.reply_text(pesan, True, enums.ParseMode.HTML, reply_markup=markup)
+    await helper.message.reply_text(pesan, True, enums.ParseMode.HTML)
 
 
 
