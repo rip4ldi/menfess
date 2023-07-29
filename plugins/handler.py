@@ -213,10 +213,3 @@ async def on_callback_query(client: Client, query: CallbackQuery):
     elif query.data == 'tidak_confirm':
         await close_cbb(client, query)
 
-@Bot.on_callback_query()
-async def on_callback_query(client: Client, query: CallbackQuery):
-    data = query.data.split('_')  # Membagi data callback menjadi beberapa bagian
-    if data[0] == 'list_ban' and len(data) == 3:  # Menangani callback dari tombol 'Next'
-        await list_ban_handler(helper, int(data[2]), int(data[1]))
-    # Tambahkan kode untuk menangani callback tombol lainnya jika ada
-
