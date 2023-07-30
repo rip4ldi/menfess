@@ -86,16 +86,16 @@ async def broadcast_pin_ya(client: Client, query: CallbackQuery):
     dihapus = 0
     blokir = 0
     gagal = 0
+    sent_message = None
     await msg.edit('Broadcast sedang berlangsung, tunggu sebentar', reply_markup=None)
+
     for user_id in user_ids:
         try:
             sent_message = await message.copy(user_id)
-            await client.pin_chat_message(sent_message.chat.id, sent_message.message_id)
             berhasil += 1
         except FloodWait as e:
             await asyncio.sleep(e.x)
             sent_message = await message.copy(user_id)
-            await client.pin_chat_message(sent_message.chat.id, sent_message.message_id)
             berhasil += 1
         except UserIsBlocked:
             blokir += 1
@@ -104,18 +104,24 @@ async def broadcast_pin_ya(client: Client, query: CallbackQuery):
         except InputUserDeactivated:
             dihapus += 1
             await db.hapus_pelanggan(user_id)
-    text = f"""<b>Broadcast selesai</b>
 
+    text = f"""<b>Broadcast selesai</b>
+    
 Jumlah pengguna: {len(user_ids)}
 Berhasil terkirim: {str(berhasil)}
-Pesan berhasil disematkan: {str(berhasil)}
 Pengguna diblokir: {str(blokir)}
 Akun yang dihapus: {str(dihapus)} (<i>Telah dihapus dari database</i>)
 Gagal terkirim: {str(gagal)}"""
 
     await msg.reply(text)
+
+    # Pastikan untuk memeriksa apakah pesan yang dikirim ke pengguna ada sebelum mencoba mem-pin pesannya.
+    if sent_message:
+        await client.pin_chat_message(sent_message.chat.id, sent_message.message_id)
+
     await msg.delete()
     await message.delete()
+
 
 async def close_cbb(client: Client, query: CallbackQuery):
     try:
