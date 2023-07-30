@@ -162,3 +162,25 @@ async def on_message(client: Client, msg: Message):
             uid = msg.from_user.id
         if command != None:
             return
+
+@Bot.on_callback_query()
+async def on_callback_query(client: Client, query: CallbackQuery):
+    if query.data == 'photo':
+        await photo_handler_inline(client, query)
+    elif query.data == 'video':
+        await video_handler_inline(client, query)
+    elif query.data == 'voice':
+        await voice_handler_inline(client, query)
+    elif query.data == 'status_bot':
+        if query.message.chat.id == config.id_admin:
+            await status_handler_inline(client, query)
+        else:
+            await query.answer('Ditolak, kamu tidak ada akses', True)
+    elif query.data == 'ya_confirm':
+        await broadcast_ya(client, query)
+    elif query.data == 'tidak_confirm':
+        await close_cbb(client, query)
+    elif query.data == 'ya_pin':
+        await broadcast_pin_ya(client, query)
+    elif query.data == 'tidak_pin':
+        await broadcast_pin_tidak(client, query)
