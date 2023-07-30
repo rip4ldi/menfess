@@ -1,5 +1,4 @@
 import asyncio
-
 from pyrogram import Client
 from pyrogram.types import (
     Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
@@ -51,7 +50,7 @@ async def broadcast_ya(client: Client, query: CallbackQuery):
             dihapus += 1
             await db.hapus_pelanggan(user_id)
     text = f"""<b>Broadcast selesai</b>
-    
+
 Jumlah pengguna: {len(user_ids)}
 Berhasil terkirim: {str(berhasil)}
 Pengguna diblokir: {str(blokir)}
@@ -64,7 +63,7 @@ Gagal terkirim: {str(gagal)}"""
 
 async def broadcast_pin_handler(client: Client, msg: Message):
     if msg.reply_to_message is None:
-        await msg.reply('Harap reply sebuah pesan', True)
+        await msg.reply('Harap reply sebuah pesan untuk disematkan', True)
     else:
         anu = msg.reply_to_message
         anu = await anu.copy(msg.chat.id, reply_to_message_id=anu.id)
@@ -73,7 +72,7 @@ async def broadcast_pin_handler(client: Client, msg: Message):
         ])
         await anu.reply('Apakah kamu akan mengirimkan pesan broadcast dan menyematkannya?', True, reply_markup=markup)
 
-async def broadcast_ya(client: Client, query: CallbackQuery):
+async def broadcast_pin_ya(client: Client, query: CallbackQuery):
     msg = query.message
     db = Database(msg.from_user.id)
     if not msg.reply_to_message:
@@ -90,11 +89,13 @@ async def broadcast_ya(client: Client, query: CallbackQuery):
     await msg.edit('Broadcast sedang berlangsung, tunggu sebentar', reply_markup=None)
     for user_id in user_ids:
         try:
-            await message.copy(user_id)
+            sent_message = await message.copy(user_id)
+            await client.pin_chat_message(sent_message.chat.id, sent_message.message_id)
             berhasil += 1
         except FloodWait as e:
             await asyncio.sleep(e.x)
-            await message.copy(user_id)
+            sent_message = await message.copy(user_id)
+            await client.pin_chat_message(sent_message.chat.id, sent_message.message_id)
             berhasil += 1
         except UserIsBlocked:
             blokir += 1
@@ -104,21 +105,15 @@ async def broadcast_ya(client: Client, query: CallbackQuery):
             dihapus += 1
             await db.hapus_pelanggan(user_id)
     text = f"""<b>Broadcast selesai</b>
-    
+
 Jumlah pengguna: {len(user_ids)}
 Berhasil terkirim: {str(berhasil)}
+Pesan berhasil disematkan: {str(berhasil)}
 Pengguna diblokir: {str(blokir)}
 Akun yang dihapus: {str(dihapus)} (<i>Telah dihapus dari database</i>)
 Gagal terkirim: {str(gagal)}"""
 
-    # Memeriksa apakah pesan broadcast berhasil dikirim sebelum menyematkannya
-    if berhasil > 0:
-        pinned_msg = await message.copy(msg.chat.id)
-        await pinned_msg.pin()
-        await msg.reply('Pesan berhasil dikirim dan disematkan kepada pengguna database.')
-    else:
-        await msg.reply('Pesan berhasil dikirim tetapi tidak ada pengguna yang menerima broadcast.')
-    
+    await msg.reply(text)
     await msg.delete()
     await message.delete()
 
