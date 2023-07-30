@@ -1,7 +1,9 @@
 import re
 import asyncio
+
 from pyrogram import Client, filters, enums
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+
 from plugins import Database, Helper
 from plugins.command import *
 from bot import Bot
@@ -153,32 +155,10 @@ async def on_message(client: Client, msg: Message):
                 hastag = config.hastag.split('|')
                 if x[1] in [hastag[0], hastag[1]]:
                     try:
-                        await client.delete_messages(msg.chat.id, msg.id)
+                        await client.delete_messages(msg.chat.id, msg.message_id)
                     except:
                         pass
         else:
             uid = msg.from_user.id
         if command != None:
             return
-
-@Bot.on_callback_query()
-async def on_callback_query(client: Client, query: CallbackQuery):
-    if query.data == 'photo':
-        await photo_handler_inline(client, query)
-    elif query.data == 'video':
-        await video_handler_inline(client, query)
-    elif query.data == 'voice':
-        await voice_handler_inline(client, query)
-    elif query.data == 'status_bot':
-        if query.message.chat.id == config.id_admin:
-            await status_handler_inline(client, query)
-        else:
-            await query.answer('Ditolak, kamu tidak ada akses', True)
-    elif query.data == 'ya_confirm':
-        await broadcast_ya(client, query)
-    elif query.data == 'tidak_confirm':
-        await close_cbb(client, query)
-    elif query.data == 'ya_pin':
-        await broadcast_pin_ya(client, query)
-    elif query.data == 'tidak_pin':
-        await close_cbb(client, query)
