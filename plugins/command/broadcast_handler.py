@@ -63,12 +63,12 @@ Gagal terkirim: {str(gagal)}"""
 
 async def broadcast_pin_handler(client: Client, msg: Message):
     if msg.reply_to_message is None:
-        await msg.reply('Harap reply sebuah pesan', True)
+        await msg.reply('Harap reply sebuah pesan untuk disematkan', True)
     else:
         anu = msg.reply_to_message
-        anu = await anu.copy(msg.chat.id, reply_to_message_id=anu.message_id)
+        anu = await anu.copy(msg.chat.id, reply_to_message_id=anu.id)
         markup = InlineKeyboardMarkup([
-            [InlineKeyboardButton('Ya', 'ya_confirm'), InlineKeyboardButton('Tidak', 'tidak_confirm')]
+            [InlineKeyboardButton('Ya', 'ya_pin'), InlineKeyboardButton('Tidak', 'tidak_pin')]
         ])
         await anu.reply('Apakah kamu akan mengirimkan pesan broadcast dan menyematkannya?', True, reply_markup=markup)
 
@@ -86,16 +86,16 @@ async def broadcast_pin_ya(client: Client, query: CallbackQuery):
     dihapus = 0
     blokir = 0
     gagal = 0
-    sent_message = None
     await msg.edit('Broadcast sedang berlangsung, tunggu sebentar', reply_markup=None)
-
     for user_id in user_ids:
         try:
             sent_message = await message.copy(user_id)
+            await client.pin_chat_message(sent_message.chat.id, sent_message.message_id)
             berhasil += 1
         except FloodWait as e:
             await asyncio.sleep(e.x)
             sent_message = await message.copy(user_id)
+            await client.pin_chat_message(sent_message.chat.id, sent_message.message_id)
             berhasil += 1
         except UserIsBlocked:
             blokir += 1
@@ -104,27 +104,18 @@ async def broadcast_pin_ya(client: Client, query: CallbackQuery):
         except InputUserDeactivated:
             dihapus += 1
             await db.hapus_pelanggan(user_id)
-
     text = f"""<b>Broadcast selesai</b>
-    
+
 Jumlah pengguna: {len(user_ids)}
 Berhasil terkirim: {str(berhasil)}
+Pesan berhasil disematkan: {str(berhasil)}
 Pengguna diblokir: {str(blokir)}
 Akun yang dihapus: {str(dihapus)} (<i>Telah dihapus dari database</i>)
 Gagal terkirim: {str(gagal)}"""
 
     await msg.reply(text)
-
-    # Pastikan untuk memeriksa apakah pesan yang dikirim ke pengguna ada sebelum mencoba mem-pin pesannya.
-    if sent_message:
-        try:
-            await client.pin_chat_message(sent_message.chat.id, sent_message.message_id)
-        except Exception as e:
-            print(f"Error pinning message: {e}")
-
     await msg.delete()
     await message.delete()
-
 
 async def close_cbb(client: Client, query: CallbackQuery):
     try:
