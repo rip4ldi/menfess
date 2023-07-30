@@ -1,13 +1,13 @@
 import re
 import asyncio
-
 from pyrogram import Client, filters, enums
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
-
 from plugins import Database, Helper
 from plugins.command import *
 from bot import Bot
 import config
+
+from plugins.command.broadcast_handler import broadcast_handler, broadcast_ya, close_cbb
 
 @Bot.on_message()
 async def on_message(client: Client, msg: Message):
@@ -71,7 +71,7 @@ async def on_message(client: Client, msg: Message):
                     return await broadcast_handler(client, msg)
             elif command == '/broadcast_pin':
                 if uid == config.id_admin:
-                    return await broadcast_pin_handler(client, msg)
+                    return await broadcast_pin_ya(client, msg)
             elif re.search(r"^[\/]settings?", command):  # menampilkan perintah settings
                 member = database.get_data_pelanggan()
                 if member.status in ['admin', 'owner']:
@@ -180,7 +180,3 @@ async def on_callback_query(client: Client, query: CallbackQuery):
         await broadcast_ya(client, query)
     elif query.data == 'tidak_confirm':
         await close_cbb(client, query)
-    elif query.data == 'ya_pin':
-        await broadcast_pin_ya(client, query)
-    elif query.data == 'tidak_pin':
-        await broadcast_pin_tidak(client, query)
