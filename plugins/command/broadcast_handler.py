@@ -74,7 +74,8 @@ async def close_cbb(client: Client, query: CallbackQuery):
         pass
 
 async def broadcast_pin_handler(client: Client, msg: Message):
-    db = Database(client.get_me().id)
+    me = await client.get_me()
+    db = Database(me.id)
     user_ids = db.get_pelanggan().id_pelanggan
     broadcast_message = await msg.copy(chat_id=msg.chat.id)
     for user_id in user_ids:
