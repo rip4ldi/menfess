@@ -1,14 +1,18 @@
 import asyncio
-import config
 
 from pyrogram import Client
-from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from pyrogram.errors import FloodWait, PeerIdInvalid, UserIsBlocked, InputUserDeactivated
+from pyrogram.types import (
+    Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+)
+from pyrogram.errors import (
+    FloodWait, PeerIdInvalid, UserIsBlocked, InputUserDeactivated
+)
 from plugins import Database
 
 async def broadcast_handler(client: Client, msg: Message):
     if msg.reply_to_message is None:
         await msg.reply('Harap reply sebuah pesan', True)
+
     else:
         anu = msg.reply_to_message
         anu = await anu.copy(msg.chat.id, reply_to_message_id=anu.id)
@@ -31,7 +35,7 @@ async def broadcast_ya(client: Client, query: CallbackQuery):
     dihapus = 0
     blokir = 0
     gagal = 0
-    await msg.edit('Broadcast sedang berlangsung, tunggu sebentar', reply_markup=None)
+    await msg.edit('Broadcast sedang berlangsung, tunggu sebentar', reply_markup = None)
     for user_id in user_ids:
         try:
             await message.copy(user_id)
@@ -59,49 +63,32 @@ Gagal terkirim: {str(gagal)}"""
     await msg.delete()
     await message.delete()
 
-async def broadcast_pin_handler(client: Client, msg: Message):
-    if msg.from_user.id == config.id_admin:  # Pastikan hanya admin yang dapat menggunakan perintah ini
-        if msg.reply_to_message is None:
-            await msg.reply('Harap reply sebuah pesan', True)
-        else:
-            message = msg.reply_to_message
-            chat_members = await client.get_chat_members(msg.chat.id)
+async def close_cbb(client: Client, query: CallbackQuery):
+    try:
+        await query.message.reply_to_message.delete()
+    except:
+        pass
+    try:
+        await query.message.delete()
+    except:
+        pass
 
-            berhasil = 0
-            dihapus = 0
-            blokir = 0
-            gagal = 0
-            await msg.edit('Broadcast dan pin sedang berlangsung, tunggu sebentar', reply_markup=None)
+async def broadcast_pin(client: Client, message: Message):
+    db = Database(client.get_me().id)
+    user_ids = db.get_pelanggan().id_pelanggan
+    broadcast_message = await message.copy(chat_id=message.chat.id)
+    for user_id in user_ids:
+        try:
+            sent_message = await broadcast_message.copy(user_id)
+            await client.pin_chat_message(user_id, sent_message.message_id)
+        except FloodWait as e:
+            await asyncio.sleep(e.x)
+            sent_message = await broadcast_message.copy(user_id)
+            await client.pin_chat_message(user_id, sent_message.message_id)
+        except UserIsBlocked:
+            await db.hapus_pelanggan(user_id)
+        except PeerIdInvalid:
+            pass
+        except InputUserDeactivated:
+            await db.hapus_pelanggan(user_id)
 
-            async def process_member(member):
-                try:
-                    await message.copy(member.user.id)
-                    return True
-                except FloodWait as e:
-                    await asyncio.sleep(e.x)
-                    await message.copy(member.user.id)
-                    return True
-                except UserIsBlocked:
-                    return False
-                except PeerIdInvalid:
-                    return False
-                except InputUserDeactivated:
-                    return False
-
-            tasks = [process_member(member) for member in chat_members]
-            results = await asyncio.gather(*tasks)
-
-            for result in results:
-                if result:
-                    berhasil += 1
-                else:
-                    gagal += 1
-
-            text = f"""<b>Broadcast dan pin selesai</b>
-            
-Jumlah pengguna: {berhasil + gagal}
-Berhasil terkirim: {str(berhasil)}
-Gagal terkirim: {str(gagal)}"""
-
-            await msg.reply(text)
-            await msg.chat.pin_message(message)
