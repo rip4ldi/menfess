@@ -12,18 +12,19 @@ async def broadcast_handler(client: Client, msg: Message):
     if msg.reply_to_message is None:
         await msg.reply('Harap reply sebuah pesan', True)
     else:
+        # Tidak perlu menggunakan await anu.copy() disini
         anu = msg.reply_to_message
-        anu = await anu.copy(msg.chat.id, reply_to_message_id=anu.id)
         markup = InlineKeyboardMarkup([
             [InlineKeyboardButton('Ya', 'ya_confirm'), InlineKeyboardButton('Tidak', 'tidak_confirm')]
         ])
         await anu.reply('apakah kamu akan mengirimkan pesan broadcast ?', True, reply_markup=markup)
 
-async def broadcast_pin_handler(user_id: int, sent_message: Message):
+async def broadcast_pin_handler(user_id: int, message_id: int):
     db = Database(user_id)
     last_status = db.get_data_pelanggan().status_full
     try:
-        await sent_message.pin()
+        # Menggunakan metode pin_chat_message() untuk menyematkan pesan berdasarkan message_id
+        await client.pin_chat_message(user_id, message_id)
         mycol.update_one({"status": last_status}, {"$set": {"status": f"pinned_{user_id}"}})
     except:
         pass
