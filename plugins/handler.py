@@ -9,8 +9,6 @@ from plugins.command import *
 from bot import Bot
 import config
 
-from plugins.command.broadcast_handler import broadcast_handler, broadcast_ya, close_cbb
-
 @Bot.on_message()
 async def on_message(client: Client, msg: Message):
     if msg.chat.type == enums.ChatType.PRIVATE:
@@ -73,7 +71,7 @@ async def on_message(client: Client, msg: Message):
                     return await broadcast_handler(client, msg)
             elif command == '/broadcast_pin':
                 if uid == config.id_admin:
-                    return await broadcast_pin_ya(client, msg)
+                    return await broadcast_pin_handler(client, msg)
             elif re.search(r"^[\/]settings?", command):  # menampilkan perintah settings
                 member = database.get_data_pelanggan()
                 if member.status in ['admin', 'owner']:
@@ -157,7 +155,7 @@ async def on_message(client: Client, msg: Message):
                 hastag = config.hastag.split('|')
                 if x[1] in [hastag[0], hastag[1]]:
                     try:
-                        await client.delete_messages(msg.chat.id, msg.message_id)
+                        await client.delete_messages(msg.chat.id, msg.id)
                     except:
                         pass
         else:
@@ -180,7 +178,9 @@ async def on_callback_query(client: Client, query: CallbackQuery):
             await query.answer('Ditolak, kamu tidak ada akses', True)
     elif query.data == 'ya_confirm':
         await broadcast_ya(client, query)
-     elif query.data == 'ya_pin':
-        await broadcast_pin_ya(client, query)
     elif query.data == 'tidak_confirm':
+        await close_cbb(client, query)
+    elif query.data == 'ya_pin':
+        await broadcast_pin_ya(client, query)
+    elif query.data == 'tidak_pin':
         await close_cbb(client, query)
