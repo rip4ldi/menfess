@@ -1,5 +1,5 @@
-import config
 import asyncio
+import config
 
 from pyrogram import Client
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
@@ -65,7 +65,7 @@ async def broadcast_pin_handler(client: Client, msg: Message):
             await msg.reply('Harap reply sebuah pesan', True)
         else:
             message = msg.reply_to_message
-            chat_members = client.iter_chat_members(msg.chat.id)
+            chat_members = await client.get_chat_members(msg.chat.id)
 
             berhasil = 0
             dihapus = 0
