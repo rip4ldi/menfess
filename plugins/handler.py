@@ -1,12 +1,13 @@
 import re
+import asyncio
 
-from pyrogram import Client, filters
-from pyrogram.types import Message, CallbackQuery
+from pyrogram import Client, filters, enums
+from pyrogram.types import Message, CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
 from plugins import Database, Helper
 from plugins.command import *
 from bot import Bot
-
+import config
 
 @Bot.on_message()
 async def on_message(client: Client, msg: Message):
@@ -36,9 +37,6 @@ async def on_message(client: Client, msg: Message):
             member = database.get_data_pelanggan()
             if member.status in status:
                 return await client.send_message(uid, "<i>Saat ini bot sedang dinonaktifkan</i>", enums.ParseMode.HTML)
-
-        # anu = msg.caption if not msg.text else msg.text
-        # print(f"-> {anu}")
 
         command = msg.text or msg.caption
         if command is None:
@@ -86,7 +84,11 @@ async def on_message(client: Client, msg: Message):
                 if uid == config.id_admin:
                     return await broadcast_handler(client, msg)
 
-            elif command in ['/settings', '/setting']:  # menampilkan perintah settings
+            elif command == '/broadcast_pin':
+                if uid == config.id_admin:
+                    return await broadcast_pin_handler(client, msg)
+
+            elif re.search(r"^[\/]settings?", command):  # menampilkan perintah settings
                 member = database.get_data_pelanggan()
                 if member.status in ['admin', 'owner']:
                     return await setting_handler(client, msg)
@@ -192,8 +194,6 @@ async def on_message(client: Client, msg: Message):
             uid = msg.from_user.id
         if command != None:
             return
-
-
 
 @Bot.on_callback_query()
 async def on_callback_query(client: Client, query: CallbackQuery):
