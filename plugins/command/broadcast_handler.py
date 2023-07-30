@@ -63,12 +63,12 @@ Gagal terkirim: {str(gagal)}"""
 
 async def broadcast_pin_handler(client: Client, msg: Message):
     if msg.reply_to_message is None:
-        await msg.reply('Harap reply sebuah pesan untuk disematkan', True)
+        await msg.reply('Harap reply sebuah pesan', True)
     else:
         anu = msg.reply_to_message
-        anu = await anu.copy(msg.chat.id, reply_to_message_id=anu.id)
+        anu = await anu.copy(msg.chat.id, reply_to_message_id=anu.message_id)
         markup = InlineKeyboardMarkup([
-            [InlineKeyboardButton('Ya', 'ya_pin'), InlineKeyboardButton('Tidak', 'tidak_pin')]
+            [InlineKeyboardButton('Ya', 'ya_confirm'), InlineKeyboardButton('Tidak', 'tidak_confirm')]
         ])
         await anu.reply('Apakah kamu akan mengirimkan pesan broadcast dan menyematkannya?', True, reply_markup=markup)
 
@@ -117,7 +117,10 @@ Gagal terkirim: {str(gagal)}"""
 
     # Pastikan untuk memeriksa apakah pesan yang dikirim ke pengguna ada sebelum mencoba mem-pin pesannya.
     if sent_message:
-        await client.pin_chat_message(sent_message.chat.id, sent_message.message_id)
+        try:
+            await client.pin_chat_message(sent_message.chat.id, sent_message.message_id)
+        except Exception as e:
+            print(f"Error pinning message: {e}")
 
     await msg.delete()
     await message.delete()
