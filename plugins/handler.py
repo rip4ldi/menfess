@@ -1,7 +1,9 @@
 import re
 import asyncio
+
 from pyrogram import Client, filters, enums
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+
 from plugins import Database, Helper
 from plugins.command import *
 from bot import Bot
@@ -178,5 +180,7 @@ async def on_callback_query(client: Client, query: CallbackQuery):
             await query.answer('Ditolak, kamu tidak ada akses', True)
     elif query.data == 'ya_confirm':
         await broadcast_ya(client, query)
+     elif query.data == 'ya_pin':
+        await broadcast_pin_ya(client, query)
     elif query.data == 'tidak_confirm':
         await close_cbb(client, query)
