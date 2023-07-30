@@ -1,9 +1,7 @@
 import re
 import asyncio
-
 from pyrogram import Client, filters, enums
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
-
 from plugins import Database, Helper
 from plugins.command import *
 from bot import Bot
@@ -21,7 +19,7 @@ async def on_message(client: Client, msg: Message):
 
         # cek apakah user sudah bergabung digrup chat
         if not await helper.cek_langganan_channel(uid):
-            return await helper.pesan_langganan()  # jika belum akan menampilkan pesan bergabung
+            return await helper.pesan_langganan() # jika belum akan menampilkan pesan bergabung
 
         if not await database.cek_user_didatabase():  # cek apakah user sudah ditambahkan didatabase
             await helper.daftar_pelanggan()  # jika belum akan ditambahkan data user ke database
@@ -80,7 +78,7 @@ async def on_message(client: Client, msg: Message):
                 return await rate_talent_handler(client, msg)
             elif re.search(r"^[\/]tf_coin", command):
                 return await transfer_coin_handler(client, msg)
-            elif re.search(r"^[\/]bot", command):  # menonaktifkan dan mengaktifkan bot
+            elif re.search(r"^[\/]bot", command): # menonaktifkan dan mengaktifkan bot
                 if uid == config.id_admin:
                     return await bot_handler(client, msg)
             elif re.search(r"^[\/]admin", command):  # menambahkan admin baru
@@ -107,7 +105,7 @@ async def on_message(client: Client, msg: Message):
             elif re.search(r"^[\/]addbf", command):  # menambahkan bf rent baru
                 if uid == config.id_admin:
                     return await tambah_bf_rent_handler(client, msg)
-            elif re.search(r"^[\/]hapus", command):  # menghapus talent
+            elif re.search(r"^[\/]hapus", command):  # menambahkan mengapus talent
                 if uid == config.id_admin:
                     return await hapus_talent_handler(client, msg)
             elif re.search(r"^[\/]ban", command):  # membanned user
@@ -123,7 +121,7 @@ async def on_message(client: Client, msg: Message):
                 hastag = config.hastag.split('|')
                 member = database.get_data_pelanggan()
                 if member.status == 'banned':
-                    return await msg.reply(f'Kamu telah <b>di banned</b>\n\n<u>Alasan:</u> {database.get_data_bot(client.id_bot).ban[str(uid)]}\nsilahkan kontak @OwnNeko untuk membuka banned', True, enums.ParseMode.HTML)
+                    return await msg.reply(f'Kamu telah <b>di banned</b>\n\n<u>Alasan:</u> {database.get_data_bot(client.id_bot).ban[str(uid)]}\nsilahkan kontak @OwnNeko untuk unbanned', True, enums.ParseMode.HTML)
                 if key in [hastag[0], hastag[1]]:
                     return (
                         await msg.reply(
@@ -183,4 +181,4 @@ async def on_callback_query(client: Client, query: CallbackQuery):
     elif query.data == 'ya_pin':
         await broadcast_pin_ya(client, query)
     elif query.data == 'tidak_pin':
-        await close_pin_cbb(client, query)
+        await close_cbb(client, query)
