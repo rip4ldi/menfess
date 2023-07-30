@@ -1,5 +1,6 @@
-import asyncio
 import config
+import asyncio
+
 from pyrogram import Client
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import FloodWait, PeerIdInvalid, UserIsBlocked, InputUserDeactivated
@@ -64,45 +65,43 @@ async def broadcast_pin_handler(client: Client, msg: Message):
             await msg.reply('Harap reply sebuah pesan', True)
         else:
             message = msg.reply_to_message
-            user_ids = [member.user.id for member in await client.get_chat_members(msg.chat.id)]
+            chat_members = client.iter_chat_members(msg.chat.id)
 
             berhasil = 0
             dihapus = 0
             blokir = 0
             gagal = 0
             await msg.edit('Broadcast dan pin sedang berlangsung, tunggu sebentar', reply_markup=None)
-            for user_id in user_ids:
+
+            async def process_member(member):
                 try:
-                    await message.copy(user_id)
-                    berhasil += 1
+                    await message.copy(member.user.id)
+                    return True
                 except FloodWait as e:
                     await asyncio.sleep(e.x)
-                    await message.copy(user_id)
-                    berhasil += 1
+                    await message.copy(member.user.id)
+                    return True
                 except UserIsBlocked:
-                    blokir += 1
+                    return False
                 except PeerIdInvalid:
-                    gagal += 1
+                    return False
                 except InputUserDeactivated:
-                    dihapus += 1
+                    return False
+
+            tasks = [process_member(member) for member in chat_members]
+            results = await asyncio.gather(*tasks)
+
+            for result in results:
+                if result:
+                    berhasil += 1
+                else:
+                    gagal += 1
 
             text = f"""<b>Broadcast dan pin selesai</b>
             
-Jumlah pengguna: {len(user_ids)}
+Jumlah pengguna: {berhasil + gagal}
 Berhasil terkirim: {str(berhasil)}
-Pengguna diblokir: {str(blokir)}
-Akun yang dihapus: {str(dihapus)}
 Gagal terkirim: {str(gagal)}"""
 
             await msg.reply(text)
             await msg.chat.pin_message(message)
-
-async def close_cbb(client: Client, query: CallbackQuery):
-    try:
-        await query.message.reply_to_message.delete()
-    except:
-        pass
-    try:
-        await query.message.delete()
-    except:
-        pass
