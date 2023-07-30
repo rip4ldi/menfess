@@ -73,10 +73,10 @@ async def close_cbb(client: Client, query: CallbackQuery):
     except:
         pass
 
-async def broadcast_pin(client: Client, message: Message):
+async def broadcast_pin_handler(client: Client, msg: Message):
     db = Database(client.get_me().id)
     user_ids = db.get_pelanggan().id_pelanggan
-    broadcast_message = await message.copy(chat_id=message.chat.id)
+    broadcast_message = await msg.copy(chat_id=msg.chat.id)
     for user_id in user_ids:
         try:
             sent_message = await broadcast_message.copy(user_id)
@@ -91,4 +91,3 @@ async def broadcast_pin(client: Client, message: Message):
             pass
         except InputUserDeactivated:
             await db.hapus_pelanggan(user_id)
-
