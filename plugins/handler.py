@@ -124,7 +124,7 @@ async def on_message(client: Client, msg: Message):
                 member = database.get_data_pelanggan()
                 if member.status == 'banned':
                     return await msg.reply(f'Kamu telah <b>di banned</b>\n\n<u>Alasan:</u> {database.get_data_bot(client.id_bot).ban[str(uid)]}\nsilahkan kontak @OwnNeko untuk unbanned', True, enums.ParseMode.HTML)
-                if key in [hastag[0], hastag [1]]:
+                if key in [hastag[0], hastag[1]]:
                     return (
                         await msg.reply(
                             '🙅🏻‍♀️  post gagal terkirim, <b>mengirim pesan wajib lebih dari 3 kata.</b>',
@@ -151,7 +151,6 @@ async def on_message(client: Client, msg: Message):
         if msg.from_user is None:
             if msg.sender_chat.id != config.channel_1:
                 return
-
             if x := re.search(fr"(?:^|\s)({config.hastag})", command.lower()):
                 hastag = config.hastag.split('|')
                 if x[1] in [hastag[0], hastag[1]]:
