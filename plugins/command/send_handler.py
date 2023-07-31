@@ -4,11 +4,11 @@ import re
 from pyrogram import Client, types, enums
 from plugins import Database, Helper
 
-async def send_with_pic_handler(client: Client, msg: types.Message, key: str, hastag: list):
+async def send_with_pic_handler(client: Client, msg: types.Message, key: str, hastag: list, username: str):
     db = Database(msg.from_user.id)
     helper = Helper(client, msg)
     user = db.get_data_pelanggan()
-    
+
     if msg.from_user.username != user.username:
         return await msg.reply('Maaf, kamu hanya bisa mengirim dengan usernamenya sendiri.')
 
@@ -57,12 +57,12 @@ async def send_with_pic_handler(client: Client, msg: types.Message, key: str, ha
     else:
         await msg.reply('media yang didukung photo, video dan voice')
 
-async def send_menfess_handler(client: Client, msg: types.Message):
+async def send_menfess_handler(client: Client, msg: types.Message, username: str):
     helper = Helper(client, msg)
     db = Database(msg.from_user.id)
     db_user = db.get_data_pelanggan()
     db_bot = db.get_data_bot(client.id_bot).kirimchannel
-    
+
     if msg.from_user.username != db_user.username:
         return await msg.reply('Maaf, kamu hanya bisa mengirim dengan usernamenya sendiri.')
 
