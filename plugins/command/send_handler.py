@@ -9,7 +9,7 @@ async def send_with_pic_handler(client: Client, msg: types.Message, key: str, ha
     helper = Helper(client, msg)
     user = db.get_data_pelanggan()
 
-    if msg.from_user.username != user.username:
+    if msg.from_user.username != username:  # Updated to use the 'username' parameter
         return await msg.reply('Maaf, kamu hanya bisa mengirim dengan usernamenya sendiri.')
 
     if msg.text or msg.photo or msg.video or msg.voice:
