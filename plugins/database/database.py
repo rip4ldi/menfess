@@ -506,6 +506,7 @@ class get_pelanggan():
 class data_pelanggan():
     def __init__(self, args):
         self.id = args['_id']
+        self.username = str(args.get('username', ''))  # Add the 'username' attribute
         self.nama = str(args['nama'])
         self.mention = f'<a href="tg://user?id={self.id}">{self.nama}</a>'
         self.coin = int(args['coin'].split('_')[0])
