@@ -1,12 +1,13 @@
 import re
-import config
+import config  # Import config module for notification settings
+
 from pyrogram import Client, enums, types
 from pyrogram.types import (
     Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 )
 from plugins import Database
 
-async def send_notification(text):
+async def send_notification(client, text):
     # Function to send notification to config.channel_1
     try:
         await client.send_message(config.channel_1, text)
@@ -29,7 +30,7 @@ async def bot_handler(client: Client, msg: Message):
                 parse_mode=enums.ParseMode.HTML
             )
         await my_db.bot_handler(status)
-        await send_notification("🔔 Bot telah diaktifkan.")
+        await send_notification(client, "🔔 Bot telah diaktifkan.")
         return await msg.reply(
             text='Saat ini status bot telah <b>AKTIF</b> ✅', quote=True,
             parse_mode=enums.ParseMode.HTML
@@ -41,12 +42,11 @@ async def bot_handler(client: Client, msg: Message):
                 parse_mode=enums.ParseMode.HTML
             )
         await my_db.bot_handler(status)
-        await send_notification("🔔 Bot telah dinonaktifkan.")
+        await send_notification(client, "🔔 Bot telah dinonaktifkan.")
         return await msg.reply(
             text='Saat ini status bot telah <b>TIDAK AKTIF</b> ❌', quote=True,
             parse_mode=enums.ParseMode.HTML
         )
-
 
 async def setting_handler(client: Client, msg:types.Message):
     db = Database(msg.from_user.id).get_data_bot(client.id_bot)
