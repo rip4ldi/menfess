@@ -212,13 +212,16 @@ async def _qris(client: Bot, query: CallbackQuery):
     qris_caption = "Ini adalah gambar QRIS."
 
     try:
-        await query.message.edit_media(
-            media=qris_image_url,
+        await query.message.edit_caption(
             caption=qris_caption,
             reply_markup=InlineKeyboardMarkup(Data.mbuttons),
         )
+        await query.message.edit_media(
+            media=qris_image_url,
+        )
     except MessageNotModified:
         pass
+
 
 
 
