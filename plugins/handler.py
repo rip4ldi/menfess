@@ -199,8 +199,9 @@ async def on_message(client: Client, msg: Message):
 
 @Bot.on_callback_query(filters.regex(r"^jasa$"))
 async def _jasa(client: Bot, query: CallbackQuery):
-    await client.send_message(
+    await client.edit_message_text(
         query.message.chat.id,
+        query.message.message_id,
         Data.JASA.format(client.username, config.id_admin),
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
@@ -208,8 +209,9 @@ async def _jasa(client: Bot, query: CallbackQuery):
 
 @Bot.on_callback_query(filters.regex(r"^dana$"))
 async def _dana(client: Bot, query: CallbackQuery):
-    await client.send_message(
+    await client.edit_message_text(
         query.message.chat.id,
+        query.message.message_id,
         Data.DANA.format("081398871823"),
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
@@ -217,12 +219,16 @@ async def _dana(client: Bot, query: CallbackQuery):
 
 @Bot.on_callback_query(filters.regex(r"^qris$"))
 async def _qris(client: Bot, query: CallbackQuery):
-    await client.send_photo(
+    await client.edit_message_media(
         query.message.chat.id,
-        photo="qr_Brother Cloth_04.03.23_1677873385.png",
-        caption="Ini adalah gambar QRIS.",
+        query.message.message_id,
+        media=types.InputMediaPhoto(
+            media="qr_Brother Cloth_04.03.23_1677873385.png",
+            caption="Ini adalah gambar QRIS.",
+        ),
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
     )
+
 
 @Bot.on_callback_query(filters.regex(r"^close$"))
 async def _close(client: Bot, query: CallbackQuery):
