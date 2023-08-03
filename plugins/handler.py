@@ -182,7 +182,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     if data == "qris":
         try:
             await query.message.edit_text(
-                text=Data.QRIS.format(client.username, comfig.id_admin),
+                text=Data.QRIS.format(client.username, config.id_admin),
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(Data.mbuttons),
             )
