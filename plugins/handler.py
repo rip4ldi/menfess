@@ -214,11 +214,11 @@ async def _qris(client: Bot, query: CallbackQuery):
 
     try:
         await query.message.edit_media(
-            media=qris_image_url,
-            reply_markup=InlineKeyboardMarkup(Data.mbuttons)
+            media=qris_image_url
         )
     except MessageNotModified:
         pass
+
 
 
 
