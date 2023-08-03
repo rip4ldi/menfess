@@ -210,18 +210,16 @@ from pyrogram.types import InlineKeyboardMarkup
 
 @Bot.on_callback_query(filters.regex(r"^qris$"))
 async def _qris(client: Bot, query: CallbackQuery):
-    qris_image_url = "https://telegra.ph/file/3a8701cb42f9af1483800.jpg"
-
-    try:
-        await query.message.edit_media(
-            media=qris_image_url
-        )
-    except MessageNotModified:
-        pass
-
-
-
-
+    qris_data = Data.QRIS
+    await client.edit_message_media(
+        query.message.chat.id,
+        query.message.message_id,
+        media=types.InputMediaPhoto(
+            media=qris_data.file_id,
+            caption=qris_data.caption,
+        ),
+        reply_markup=InlineKeyboardMarkup(Data.mbuttons),
+    )
 
 
 @Bot.on_callback_query(filters.regex(r"^close$"))
