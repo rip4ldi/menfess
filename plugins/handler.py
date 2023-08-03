@@ -208,15 +208,19 @@ async def _jasa(client: Bot, query: CallbackQuery):
 
 from pyrogram.types import InlineKeyboardMarkup
 
-await client.edit_message_media(
-    query.message.chat.id,
-    query.message_id,  # Perbaiki di sini
-    media=types.InputMediaPhoto(
-        media=qris_data.file_id,
-        caption=qris_data.caption,
-    ),
-    reply_markup=InlineKeyboardMarkup(Data.mbuttons),
-)
+@Bot.on_callback_query(filters.regex(r"^qris$"))
+async def _qris(client: Bot, query: CallbackQuery):
+    qris_data = Data.QRIS  # Pastikan Anda telah mengimpor Data.py dan telah mendefinisikan QRIS di dalamnya
+    await client.edit_message_media(
+        query.message.chat.id,
+        query.message_id,
+        media=types.InputMediaPhoto(
+            media=qris_data.file_id,
+            caption=qris_data.caption,
+        ),
+        reply_markup=InlineKeyboardMarkup(Data.mbuttons),
+    )
+
 
 
 
