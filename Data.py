@@ -30,7 +30,7 @@ class Data:
    - Tampilan statistik unduhan file.
    - Dukungan untuk berbagai jenis file.
 
-Untuk informasi lebih lanjut dan pemesanan, silakan hubungi @SayaNeko.
+Untuk informasi lebih lanjut dan pemesanan, silakan hubungi @OwnNeko.
 """
 
     close = [
@@ -58,5 +58,5 @@ DANA : 081398871823
 """
 
     QRIS = """
- Klik Disini </b><a href='https://telegra.ph/file/3a8701cb42f9af1483800.jpg'>BrotherCloth</a>
+ Klik Disini </b><a href='https://telegra.ph/file/3a8701cb42f9af1483800.jpg'>QRIS BrotherCloth</a>
 """
