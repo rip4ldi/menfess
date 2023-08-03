@@ -209,16 +209,12 @@ async def _jasa(client: Bot, query: CallbackQuery):
 @Bot.on_callback_query(filters.regex(r"^qris$"))
 async def _qris(client: Bot, query: CallbackQuery):
     qris_image_url = "https://telegra.ph/file/3a8701cb42f9af1483800.jpg"
-    qris_caption = "<b>Ini adalah gambar QRIS.</b>\n\n"
-    qris_caption += f'<a href="{qris_image_url}">&#8205;</a>'
+    qris_caption = "Ini adalah gambar QRIS."
 
     try:
         await query.message.edit_media(
-            media=InputMediaPhoto(
-                media=qris_image_url,
-                caption=qris_caption,
-                parse_mode="HTML",
-            ),
+            media=qris_image_url,
+            caption=qris_caption,
             reply_markup=InlineKeyboardMarkup(Data.mbuttons),
         )
     except MessageNotModified:
