@@ -230,6 +230,7 @@ async def _qris(client: Bot, query: CallbackQuery):
     )
 
 
+
 @Bot.on_callback_query(filters.regex(r"^close$"))
 async def _close(client: Bot, query: CallbackQuery):
     await query.message.delete()
