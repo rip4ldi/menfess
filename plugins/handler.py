@@ -160,6 +160,10 @@ async def on_message(client: Client, msg: Message):
         if command != None:
             return
 
+# ... (Previous code)
+
+# Continuing from where we left off
+
 @Bot.on_message(filters.private & filters.incoming & filters.command("jasa"))
 async def _jasa(client: Bot, msg: Message):
     await client.send_message(
@@ -169,52 +173,25 @@ async def _jasa(client: Bot, msg: Message):
         reply_markup=InlineKeyboardMarkup(Data.buttons),
     )
 
-@Bot.on_message(filters.private & filters.incoming & filters.command("qris"))
-async def _qris(client: Bot, msg: Message):
-    await client.send_message(
-        msg.chat.id,
-        "<b>Cara Menggunakan Bot ini</b>\n" + Data.QRIS,
-        disable_web_page_preview=True,
-        reply_markup=InlineKeyboardMarkup(Data.buttons),
-    )
-
-@Bot.on_callback_query()
-async def cb_handler(client: Bot, query: CallbackQuery):
-    data = query.data
-    if data == "photo":
-        await photo_handler_inline(client, query)
-    elif data == "video":
-        await video_handler_inline(client, query)
-    elif data == "voice":
-        await voice_handler_inline(client, query)
-    elif data == "status_bot":
-        if query.message.chat.id == config.id_admin:
-            await status_handler_inline(client, query)
-        else:
-            await query.answer('Ditolak, kamu tidak ada akses', True)
-    elif data == "ya_confirm":
-        await broadcast_ya(client, query)
-    elif data == "tidak_confirm":
-        await close_cbb(client, query)
-
 @Bot.on_callback_query()
 async def on_callback_query(client: Bot, query: CallbackQuery):
-    if query.data == 'photo':
+    data = query.data
+    if data == 'photo':
         await photo_handler_inline(client, query)
-    elif query.data == 'video':
+    elif data == 'video':
         await video_handler_inline(client, query)
-    elif query.data == 'voice':
+    elif data == 'voice':
         await voice_handler_inline(client, query)
-    elif query.data == 'status_bot':
+    elif data == 'status_bot':
         if query.message.chat.id == config.id_admin:
             await status_handler_inline(client, query)
         else:
             await query.answer('Ditolak, kamu tidak ada akses', True)
-    elif query.data == 'ya_confirm':
+    elif data == 'ya_confirm':
         await broadcast_ya(client, query)
-    elif query.data == 'tidak_confirm':
+    elif data == 'tidak_confirm':
         await close_cbb(client, query)
-    elif query.data == "qris":
+    elif data == "qris":
         try:
             await query.message.edit_text(
                 text=Data.QRIS.format(client.username, config.id_admin),
@@ -223,7 +200,7 @@ async def on_callback_query(client: Bot, query: CallbackQuery):
             )
         except MessageNotModified:
             pass
-    elif query.data == "jasa":
+    elif data == "jasa":  # Adding handling for "jasa" callback
         try:
             await query.message.edit_text(
                 text="<b>Jasa NekoLocal</b>\n" + Data.JASA,
@@ -232,7 +209,7 @@ async def on_callback_query(client: Bot, query: CallbackQuery):
             )
         except MessageNotModified:
             pass
-    elif query.data == "dana":
+    elif data == "dana":
         try:
             await query.message.edit_text(
                 text=Data.DANA.format("081398871823"),
@@ -241,10 +218,11 @@ async def on_callback_query(client: Bot, query: CallbackQuery):
             )
         except MessageNotModified:
             pass
-    elif query.data == "close":
+    elif data == "close":
         await query.message.delete()
         try:
             await query.message.reply_to_message.delete()
         except BaseException:
             pass
 
+# Kode selanjutnya
