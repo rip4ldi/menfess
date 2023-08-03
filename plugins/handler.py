@@ -201,7 +201,7 @@ async def on_message(client: Client, msg: Message):
 async def _jasa(client: Bot, query: CallbackQuery):
     await client.send_message(
         query.message.chat.id,
-        Data.JASA.format(client.username, ID_ADMIN),
+        Data.JASA.format(client.username, config.id_admin),
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
     )
