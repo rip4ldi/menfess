@@ -60,7 +60,7 @@ DANA : 081398871823
     QRIS = """
 Ini adalah gambar QRIS (Quick Response Indonesia Standard) yang dapat digunakan untuk melakukan pembayaran melalui berbagai aplikasi pembayaran di Indonesia.
 
-[![](https://example.com/qris_image)](https://example.com/qris_image)
+[![](https://github.com/nekolocal/nekomenfess/blob/main/qr_Brother%20Cloth_04.03.23_1677873385.png)](https://github.com/nekolocal/nekomenfess/blob/main/qr_Brother%20Cloth_04.03.23_1677873385.png)
 
 Develoved by </b><a href='https://t.me/SayaNeko'>SayaNeko</a>
 """
