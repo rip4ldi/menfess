@@ -1,16 +1,10 @@
 import re
-
-from pyrogram import Client, filters
-from pyrogram.types import Message, CallbackQuery, InputMediaPhoto
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
+from pyrogram import Client, filters, enums
+from pyrogram.types import Message, CallbackQuery, InputMediaPhoto, InlineKeyboardButton, InlineKeyboardMarkup
 from plugins import Database, Helper
 from plugins.command import *
 from bot import Bot
-
 from Data import Data
-from pyrogram import filters
-from pyrogram import enums
 
 @Bot.on_message()
 async def on_message(client: Client, msg: Message):
@@ -175,6 +169,32 @@ async def _jasa(client: Bot, msg: Message):
         reply_markup=InlineKeyboardMarkup(Data.buttons),
     )
 
+@Bot.on_message(filters.private & filters.incoming & filters.command("dana"))
+async def _dana(client: Bot, msg: Message):
+    await client.send_message(
+        msg.chat.id,
+        Data.DANA.format("081398871823"),
+        disable_web_page_preview=True,
+        reply_markup=InlineKeyboardMarkup(Data.mbuttons),
+    )
+
+@Bot.on_callback_query()
+async def on_callback_query(client: Bot, query: CallbackQuery):
+    if query.data == 'photo':
+        await photo_handler_inline(client, query)
+    elif query.data == 'video':
+        await video_handler_inline(client, query)
+    elif query.data == 'voice':
+        await voice_handler_inline(client, query)
+    elif query.data == 'status_bot':
+        if query.message.chat.id == config.id_admin:
+            await status_handler_inline(client, query)
+        else:
+            await query.answer('Ditolak, kamu tidak ada akses', True)
+    elif query.data == 'ya_confirm':
+        await broadcast_ya(client, query)
+    elif query.data == 'tidak_confirm':
+        await close_cbb(client, query)
 
 @Bot.on_callback_query()
 async def cb_handler(client: Bot, query: CallbackQuery):
@@ -197,6 +217,15 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             )
         except MessageNotModified:
             pass
+    elif data == "dana":
+        try:
+            await query.message.edit_text(
+                text=Data.DANA.format("081398871823"),
+                disable_web_page_preview=True,
+                reply_markup=InlineKeyboardMarkup(Data.mbuttons),
+            )
+        except MessageNotModified:
+            pass
     elif data == "close":
         await query.message.delete()
         try:
@@ -204,20 +233,3 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         except BaseException:
             pass
 
-@Bot.on_callback_query()
-async def on_callback_query(client: Bot, query: CallbackQuery):
-    if query.data == 'photo':
-        await photo_handler_inline(client, query)
-    elif query.data == 'video':
-        await video_handler_inline(client, query)
-    elif query.data == 'voice':
-        await voice_handler_inline(client, query)
-    elif query.data == 'status_bot':
-        if query.message.chat.id == config.id_admin:
-            await status_handler_inline(client, query)
-        else:
-            await query.answer('Ditolak, kamu tidak ada akses', True)
-    elif query.data == 'ya_confirm':
-        await broadcast_ya(client, query)
-    elif query.data == 'tidak_confirm':
-        await close_cbb(client, query)
