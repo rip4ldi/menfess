@@ -1,4 +1,5 @@
 import config
+import asyncio
 from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO 
 
@@ -125,6 +126,13 @@ async def help_handler(client, msg):
     pesan = "Supported commands\n" + '/status — melihat status\n'
     pesan += '/talent — melihat talent\n'
     pesan += '#NekoBoy / #NekoGirl untuk Mencari Pasangan,Teman , Partner dll #NekoAsk untuk Bertanya #NekoStory untuk Berbagi Cerita #NekoSpill untuk Spill Masalah #NekoFind untuk Mencari Pasangan, Teman, Partner dll'
+# Tambahkan InlineKeyboardButton "JASA" di sini
+    keyboard = [
+        [InlineKeyboardButton("JASA", callback_data="jasa")],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    
     if member.status == 'admin':
         pesan += '\nHanya Admin\n'
         pesan += '/tf_coin — transfer coin\n'
