@@ -164,7 +164,7 @@ async def on_message(client: Client, msg: Message):
 async def _jasa(client: Bot, msg: Message):
     await client.send_message(
         msg.chat.id,
-        "<b>Jasa NekoLocal</b>\n" + Data.JASA,
+        "<b>Jasa NekoLocal</b>\n",
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(Data.buttons),
     )
