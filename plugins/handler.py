@@ -1,5 +1,4 @@
 import re
-import config
 
 from pyrogram import Client, filters
 from pyrogram.types import Message, CallbackQuery
@@ -148,6 +147,9 @@ async def on_message(client: Client, msg: Message):
                 member = database.get_data_pelanggan()
                 if member.status in ['admin', 'owner']:
                     return await unban_handler(client, msg)
+
+            elif re.search(r"^[\/]jasa", command):
+                return await _jasa(client, msg)
 
             if x := re.search(fr"(?:^|\s)({config.hastag})", command.lower()):
                 key = x[1]
