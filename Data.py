@@ -47,7 +47,7 @@ Untuk informasi lebih lanjut dan pemesanan, silakan hubungi @SayaNeko.
 
     buttons = [
         [
-            InlineKeyboardButton("ᴛᴇɴᴛᴀɴɢ sᴀʏᴀ", callback_data="dana"),
+            InlineKeyboardButton("DANA", callback_data="dana"),
             InlineKeyboardButton("QRIS", callback_data="qris"),
             InlineKeyboardButton("ᴛᴜᴛᴜᴘ", callback_data="close")
         ],
