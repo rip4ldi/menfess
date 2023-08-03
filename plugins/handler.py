@@ -164,10 +164,11 @@ async def on_message(client: Client, msg: Message):
 async def _jasa(client: Bot, msg: Message):
     await client.send_message(
         msg.chat.id,
-        "<b>Jasa NekoLocal</b>\n",
+        Data.JASA,
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(Data.buttons),
     )
+
 
 @Bot.on_message(filters.private & filters.incoming & filters.command("dana"))
 async def _dana(client: Bot, msg: Message):
