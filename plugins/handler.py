@@ -1,6 +1,6 @@
 import re
 from pyrogram import Client, filters, enums
-from pyrogram.types import Message, CallbackQuery, InputMediaPhoto, InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import Message, CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 from plugins import Database, Helper
 from plugins.command import *
 from bot import Bot
@@ -169,7 +169,6 @@ async def _jasa(client: Bot, msg: Message):
         reply_markup=InlineKeyboardMarkup(Data.buttons),
     )
 
-
 @Bot.on_message(filters.private & filters.incoming & filters.command("qris"))
 async def _qris(client: Bot, msg: Message):
     await client.send_message(
@@ -179,35 +178,24 @@ async def _qris(client: Bot, msg: Message):
         reply_markup=InlineKeyboardMarkup(Data.buttons),
     )
 
-
 @Bot.on_callback_query()
 async def cb_handler(client: Bot, query: CallbackQuery):
     data = query.data
-    if data == "jasa":
-        try:
-            await query.message.edit_text(
-                text=Data.JASA,
-                disable_web_page_preview=True,
-                reply_markup=InlineKeyboardMarkup(Data.buttons),
-            )
-        except MessageNotModified:
-            pass
-    elif data == "qris":
-        try:
-            await query.message.edit_text(
-                text="<b>Cara Menggunakan Bot ini</b>\n" + Data.QRIS,
-                disable_web_page_preview=True,
-                reply_markup=InlineKeyboardMarkup(Data.buttons),
-            )
-        except MessageNotModified:
-            pass
-    elif data == "close":
-        await query.message.delete()
-        try:
-            await query.message.reply_to_message.delete()
-        except BaseException:
-            pass
-
+    if data == "photo":
+        await photo_handler_inline(client, query)
+    elif data == "video":
+        await video_handler_inline(client, query)
+    elif data == "voice":
+        await voice_handler_inline(client, query)
+    elif data == "status_bot":
+        if query.message.chat.id == config.id_admin:
+            await status_handler_inline(client, query)
+        else:
+            await query.answer('Ditolak, kamu tidak ada akses', True)
+    elif data == "ya_confirm":
+        await broadcast_ya(client, query)
+    elif data == "tidak_confirm":
+        await close_cbb(client, query)
 
 @Bot.on_callback_query()
 async def on_callback_query(client: Bot, query: CallbackQuery):
@@ -226,11 +214,7 @@ async def on_callback_query(client: Bot, query: CallbackQuery):
         await broadcast_ya(client, query)
     elif query.data == 'tidak_confirm':
         await close_cbb(client, query)
-
-@Bot.on_callback_query()
-async def cb_handler(client: Bot, query: CallbackQuery):
-    data = query.data
-    if data == "qris":
+    elif query.data == "qris":
         try:
             await query.message.edit_text(
                 text=Data.QRIS.format(client.username, config.id_admin),
@@ -239,7 +223,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             )
         except MessageNotModified:
             pass
-    elif data == "jasa":
+    elif query.data == "jasa":
         try:
             await query.message.edit_text(
                 text="<b>Jasa NekoLocal</b>\n" + Data.JASA,
@@ -248,7 +232,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             )
         except MessageNotModified:
             pass
-    elif data == "dana":
+    elif query.data == "dana":
         try:
             await query.message.edit_text(
                 text=Data.DANA.format("081398871823"),
@@ -257,7 +241,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             )
         except MessageNotModified:
             pass
-    elif data == "close":
+    elif query.data == "close":
         await query.message.delete()
         try:
             await query.message.reply_to_message.delete()
