@@ -176,6 +176,7 @@ async def _jasa(client: Bot, query: CallbackQuery):
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
     )
 
+
 @Bot.on_callback_query(filters.regex(r"^dana$"))
 async def _dana(client: Bot, query: CallbackQuery):
     await client.edit_message_text(
