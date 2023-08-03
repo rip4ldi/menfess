@@ -206,19 +206,19 @@ async def _jasa(client: Bot, query: CallbackQuery):
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
     )
 
+from pyrogram.types import InlineKeyboardMarkup
+
 @Bot.on_callback_query(filters.regex(r"^qris$"))
 async def _qris(client: Bot, query: CallbackQuery):
     qris_image_url = "https://telegra.ph/file/3a8701cb42f9af1483800.jpg"
-    qris_caption = "Ini adalah gambar QRIS."
 
     try:
-        await query.message.edit_caption(caption=qris_caption)
-        await query.message.edit_media(media=qris_image_url)
+        await query.message.edit_media(
+            media=qris_image_url,
+            reply_markup=InlineKeyboardMarkup(Data.mbuttons)
+        )
     except MessageNotModified:
         pass
-
-
-
 
 
 
