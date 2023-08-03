@@ -199,34 +199,40 @@ async def on_message(client: Client, msg: Message):
             return
 
 @Bot.on_callback_query(filters.regex(r"^jasa$"))
+@Bot.on_callback_query(filters.regex(r"^jasa$"))
 async def _jasa(client: Bot, query: CallbackQuery):
-    await query.message.edit_text(
+    await client.send_message(
+        query.message.chat.id,
         Data.JASA.format(client.username, config.id_admin),
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
     )
 
-from pyrogram.types import InlineKeyboardMarkup
+@Bot.on_callback_query(filters.regex(r"^dana$"))
+async def _dana(client: Bot, query: CallbackQuery):
+    await client.send_message(
+        query.message.chat.id,
+        Data.DANA.format("081398871823"),
+        disable_web_page_preview=True,
+        reply_markup=InlineKeyboardMarkup(Data.mbuttons),
+    )
 
 @Bot.on_callback_query(filters.regex(r"^qris$"))
 async def _qris(client: Bot, query: CallbackQuery):
-    qris_data = Data.QRIS  # Pastikan Anda telah mengimpor Data.py dan telah mendefinisikan QRIS di dalamnya
-await client.edit_message_media(
-    query.message.chat.id,
-    query.message.message_id,  # Mengganti query.message_id menjadi query.message.message_id
-    media=types.InputMediaPhoto(
-        media=qris_data.file_id,
-        caption=qris_data.caption,
-    ),
-    reply_markup=InlineKeyboardMarkup(Data.mbuttons),
-)
-
-
+    qris_data = Data.QRIS  # Dapatkan data QRIS dari Data.py
+    await client.edit_message_media(
+        query.message.chat.id,
+        query.message.message_id,  # Mengganti query.message_id menjadi query.message.message_id
+        media=types.InputMediaPhoto(
+            media=qris_data.file_id,
+            caption=qris_data.caption,
+        ),
+        reply_markup=InlineKeyboardMarkup(Data.mbuttons),
+    )
 
 @Bot.on_callback_query(filters.regex(r"^close$"))
 async def _close(client: Bot, query: CallbackQuery):
     await query.message.delete()
-
 @Bot.on_callback_query()
 async def on_callback_query(client: Client, query: CallbackQuery):
     if query.data == 'photo':
