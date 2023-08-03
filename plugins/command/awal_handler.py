@@ -123,16 +123,16 @@ async def gagal_kirim_handler(client: Client, msg: types.Message):
 async def help_handler(client, msg):
     db = Database(msg.from_user.id)
     member = db.get_data_pelanggan()
-    pesan = "Supported commands\n" + '/status — melihat status\n'
+   pesan = "Supported commands\n" + '/status — melihat status\n'
     pesan += '/talent — melihat talent\n'
     pesan += '#NekoBoy / #NekoGirl untuk Mencari Pasangan,Teman , Partner dll #NekoAsk untuk Bertanya #NekoStory untuk Berbagi Cerita #NekoSpill untuk Spill Masalah #NekoFind untuk Mencari Pasangan, Teman, Partner dll'
-# Tambahkan InlineKeyboardButton "JASA" di sini
+    
+    # Tambahkan InlineKeyboardButton "JASA" di sini
     keyboard = [
         [InlineKeyboardButton("JASA", callback_data="jasa")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    
     if member.status == 'admin':
         pesan += '\nHanya Admin\n'
         pesan += '/tf_coin — transfer coin\n'
@@ -166,7 +166,8 @@ async def help_handler(client, msg):
         pesan += '\n=====BANNED COMMAND=====\n'
         pesan += '/ban — ban user\n'
         pesan += '/unban — unban user\n'
-    await msg.reply_text(pesan, True)
+
+    await msg.reply_text(pesan, True, reply_markup=reply_markup)
 
 async def reply_with_image_text(client: Client, msg: types.Message, text: str, image_path: str):
     helper = Helper(client, msg)
