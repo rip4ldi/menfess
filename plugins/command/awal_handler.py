@@ -123,7 +123,6 @@ async def gagal_kirim_handler(client: Client, msg: types.Message):
 async def help_handler(client, msg):
     db = Database(msg.from_user.id)
     member = db.get_data_pelanggan()
-   pesan = "Supported commands\n" + '/status — melihat status\n'
     # Kode sebelumnya
     pesan = "Supported commands\n" + '/status — melihat status\n'
     pesan += '/talent — melihat talent\n'
