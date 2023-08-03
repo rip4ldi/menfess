@@ -199,7 +199,6 @@ async def on_message(client: Client, msg: Message):
             return
 
 @Bot.on_callback_query(filters.regex(r"^jasa$"))
-@Bot.on_callback_query(filters.regex(r"^jasa$"))
 async def _jasa(client: Bot, query: CallbackQuery):
     await client.send_message(
         query.message.chat.id,
@@ -219,16 +218,15 @@ async def _dana(client: Bot, query: CallbackQuery):
 
 @Bot.on_callback_query(filters.regex(r"^qris$"))
 async def _qris(client: Bot, query: CallbackQuery):
-    qris_data = Data.QRIS  # Dapatkan data QRIS dari Data.py
     await client.edit_message_media(
         query.message.chat.id,
-        query.message.message_id,  # Mengganti query.message_id menjadi query.message.message_id
-        media=types.InputMediaPhoto(
-            media=qris_data.file_id,
-            caption=qris_data.caption,
+        query.message.message_id,
+        media=InputMediaPhoto(
+            media="https://telegra.ph/file/3a8701cb42f9af1483800.jpg"
         ),
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
     )
+
 
 @Bot.on_callback_query(filters.regex(r"^close$"))
 async def _close(client: Bot, query: CallbackQuery):
