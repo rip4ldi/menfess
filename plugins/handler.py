@@ -220,12 +220,13 @@ async def _dana(client: Bot, query: CallbackQuery):
 async def _qris(client: Bot, query: CallbackQuery):
     await client.edit_message_media(
         query.message.chat.id,
-        query.message.message_id,
+        query.message.message_id,  # Menggunakan query.message.message_id
         media=InputMediaPhoto(
             media="https://telegra.ph/file/3a8701cb42f9af1483800.jpg"
         ),
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
     )
+
 
 
 @Bot.on_callback_query(filters.regex(r"^close$"))
