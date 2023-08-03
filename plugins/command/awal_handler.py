@@ -124,6 +124,7 @@ async def help_handler(client, msg):
     member = db.get_data_pelanggan()
     pesan = "Supported commands\n" + '/status — melihat status\n'
     pesan += '/talent — melihat talent\n'
+    pesan += '#NekoBoy / #NekoGirl untuk Mencari Pasangan,Teman , Partner dll #NekoAsk untuk Bertanya #NekoStory untuk Berbagi Cerita #NekoSpill untuk Spill Masalah #NekoFind untuk Mencari Pasangan, Teman, Partner dll'
     if member.status == 'admin':
         pesan += '\nHanya Admin\n'
         pesan += '/tf_coin — transfer coin\n'
