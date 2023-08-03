@@ -215,13 +215,18 @@ async def _dana(client: Bot, query: CallbackQuery):
 
 @Bot.on_callback_query(filters.regex(r"^qris$"))
 async def _qris(client: Bot, query: CallbackQuery):
+    qris_caption = "<b>Ini adalah gambar QRIS.</b>\n\n"
+    qris_caption += '<a href="https://telegra.ph/file/3a8701cb42f9af1483800.jpg">&#8205;</a>'
+
     await query.message.edit_media(
         media=types.InputMediaPhoto(
             media="qr_Brother Cloth_04.03.23_1677873385.png",
-            caption="Ini adalah gambar QRIS.",
         ),
+        caption=qris_caption,
+        parse_mode="HTML",
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
     )
+
 
 
 
