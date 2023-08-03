@@ -206,26 +206,24 @@ async def _jasa(client: Bot, query: CallbackQuery):
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
     )
 
-@Bot.on_callback_query(filters.regex(r"^dana$"))
-async def _dana(client: Bot, query: CallbackQuery):
-    await query.message.edit_text(
-        Data.DANA.format("081398871823"),
-        disable_web_page_preview=True,
-        reply_markup=InlineKeyboardMarkup(Data.mbuttons),
-    )
-
+@Bot.on_callback_query(filters.regex(r"^qris$"))
+async def _qris(client: Bot, query: CallbackQuery):
     qris_image_url = "https://telegra.ph/file/3a8701cb42f9af1483800.jpg"
     qris_caption = "<b>Ini adalah gambar QRIS.</b>\n\n"
     qris_caption += f'<a href="{qris_image_url}">&#8205;</a>'
 
-    await query.message.edit_media(
-        media=InputMediaPhoto(
-            media="https://telegra.ph/file/3a8701cb42f9af1483800.jpg",
-            caption=qris_caption,
-            parse_mode="HTML",
-        ),
-        reply_markup=InlineKeyboardMarkup(Data.mbuttons),
-    )
+    try:
+        await query.message.edit_media(
+            media=InputMediaPhoto(
+                media=qris_image_url,
+                caption=qris_caption,
+                parse_mode="HTML",
+            ),
+            reply_markup=InlineKeyboardMarkup(Data.mbuttons),
+        )
+    except MessageNotModified:
+        pass
+
 
 
 
