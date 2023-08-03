@@ -129,11 +129,13 @@ async def help_handler(client, msg):
     pesan += '#NekoBoy / #NekoGirl untuk Mencari Pasangan,Teman , Partner dll #NekoAsk untuk Bertanya #NekoStory untuk Berbagi Cerita #NekoSpill untuk Spill Masalah #NekoFind untuk Mencari Pasangan, Teman, Partner dll'
     
     # Tambahkan InlineKeyboardButton "JASA" di sini
+    # Tambahkan InlineKeyboardButton "JASA" di sini
     keyboard = [
         [InlineKeyboardButton("JASA", callback_data="jasa")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
+    await msg.reply_text(pesan, True, reply_markup=reply_markup)
     if member.status == 'admin':
         pesan += '\nHanya Admin\n'
         pesan += '/tf_coin — transfer coin\n'
