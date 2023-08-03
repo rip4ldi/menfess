@@ -124,6 +124,8 @@ async def help_handler(client, msg):
     db = Database(msg.from_user.id)
     member = db.get_data_pelanggan()
    pesan = "Supported commands\n" + '/status — melihat status\n'
+    # Kode sebelumnya
+    pesan = "Supported commands\n" + '/status — melihat status\n'
     pesan += '/talent — melihat talent\n'
     pesan += '#NekoBoy / #NekoGirl untuk Mencari Pasangan,Teman , Partner dll #NekoAsk untuk Bertanya #NekoStory untuk Berbagi Cerita #NekoSpill untuk Spill Masalah #NekoFind untuk Mencari Pasangan, Teman, Partner dll'
     
@@ -168,7 +170,6 @@ async def help_handler(client, msg):
         pesan += '/unban — unban user\n'
 
     await msg.reply_text(pesan, True, reply_markup=reply_markup)
-
 async def reply_with_image_text(client: Client, msg: types.Message, text: str, image_path: str):
     helper = Helper(client, msg)
     first = msg.from_user.first_name
