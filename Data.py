@@ -2,7 +2,7 @@ from pyrogram.types import InlineKeyboardButton
 
 class Data:
     JASA = """
-<b>JASA PEMBUATAN BOT</b>
+<b>DAFTAR:</b>
 
 1. Pembuatan Bot Menfess
    Deskripsi: Bot untuk mengelola layanan postingan anonim (menfess) di grup.
