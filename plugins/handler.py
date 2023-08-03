@@ -170,14 +170,44 @@ async def _jasa(client: Bot, msg: Message):
     )
 
 
-@Bot.on_message(filters.private & filters.incoming & filters.command("dana"))
-async def _dana(client: Bot, msg: Message):
+@Bot.on_message(filters.private & filters.incoming & filters.command("qris"))
+async def _qris(client: Bot, msg: Message):
     await client.send_message(
         msg.chat.id,
-        Data.DANA.format("081398871823"),
+        "<b>Cara Menggunakan Bot ini</b>\n" + Data.QRIS,
         disable_web_page_preview=True,
-        reply_markup=InlineKeyboardMarkup(Data.mbuttons),
+        reply_markup=InlineKeyboardMarkup(Data.buttons),
     )
+
+
+@Bot.on_callback_query()
+async def cb_handler(client: Bot, query: CallbackQuery):
+    data = query.data
+    if data == "jasa":
+        try:
+            await query.message.edit_text(
+                text=Data.JASA,
+                disable_web_page_preview=True,
+                reply_markup=InlineKeyboardMarkup(Data.buttons),
+            )
+        except MessageNotModified:
+            pass
+    elif data == "qris":
+        try:
+            await query.message.edit_text(
+                text="<b>Cara Menggunakan Bot ini</b>\n" + Data.QRIS,
+                disable_web_page_preview=True,
+                reply_markup=InlineKeyboardMarkup(Data.buttons),
+            )
+        except MessageNotModified:
+            pass
+    elif data == "close":
+        await query.message.delete()
+        try:
+            await query.message.reply_to_message.delete()
+        except BaseException:
+            pass
+
 
 @Bot.on_callback_query()
 async def on_callback_query(client: Bot, query: CallbackQuery):
