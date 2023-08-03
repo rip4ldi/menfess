@@ -166,41 +166,43 @@ async def on_message(client: Client, msg: Message):
         if command != None:
             return
 
-@Bot.on_callback_query(filters.regex(r"^jasa$"))
-async def _jasa(client: Bot, query: CallbackQuery):
-    await client.edit_message_text(
-        query.message.chat.id,
-        query.message.message_id,
-        Data.JASA.format(client.username, config.id_admin),
+@Bot.on_message(filters.private & filters.incoming & filters.command("jasa"))
+async def _jasa(client: Bot, msg: Message):
+    await client.send_message(
+        msg.chat.id,
+        "<b>Jasa NekoLocal</b>\n" + Data.JASA,
         disable_web_page_preview=True,
-        reply_markup=InlineKeyboardMarkup(Data.mbuttons),
+        reply_markup=InlineKeyboardMarkup(Data.buttons),
     )
 
 
-@Bot.on_callback_query(filters.regex(r"^dana$"))
-async def _dana(client: Bot, query: CallbackQuery):
-    await client.edit_message_text(
-        query.message.chat.id,
-        query.message.message_id,
-        Data.DANA.format("081398871823"),
-        disable_web_page_preview=True,
-        reply_markup=InlineKeyboardMarkup(Data.mbuttons),
-    )
-
-@Bot.on_callback_query(filters.regex(r"^qris$"))
-async def _qris(client: Bot, query: CallbackQuery):
-    await client.edit_message_media(
-        query.message.chat.id,
-        query.message.message_id,  # Menggunakan query.message.message_id
-        media=InputMediaPhoto(
-            media="https://telegra.ph/file/3a8701cb42f9af1483800.jpg"
-        ),
-        reply_markup=InlineKeyboardMarkup(Data.mbuttons),
-    )
-
-@Bot.on_callback_query(filters.regex(r"^close$"))
-async def _close(client: Bot, query: CallbackQuery):
-    await query.message.delete()
+@Bot.on_callback_query()
+async def cb_handler(client: Bot, query: CallbackQuery):
+    data = query.data
+    if data == "qris":
+        try:
+            await query.message.edit_text(
+                text=Data.QRIS.format(client.username, comfig.id_admin),
+                disable_web_page_preview=True,
+                reply_markup=InlineKeyboardMarkup(Data.mbuttons),
+            )
+        except MessageNotModified:
+            pass
+    elif data == "jasa":
+        try:
+            await query.message.edit_text(
+                text="<b>Jasa NekoLocal</b>\n" + Data.JASA,
+                disable_web_page_preview=True,
+                reply_markup=InlineKeyboardMarkup(Data.buttons),
+            )
+        except MessageNotModified:
+            pass
+    elif data == "close":
+        await query.message.delete()
+        try:
+            await query.message.reply_to_message.delete()
+        except BaseException:
+            pass
 
 @Bot.on_callback_query()
 async def on_callback_query(client: Bot, query: CallbackQuery):
