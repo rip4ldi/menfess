@@ -2,6 +2,7 @@ import re
 
 from pyrogram import Client, filters
 from pyrogram.types import Message, CallbackQuery
+from pyrogram.types import InputMediaPhoto
 
 from plugins import Database, Helper
 from plugins.command import *
@@ -213,17 +214,16 @@ async def _dana(client: Bot, query: CallbackQuery):
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
     )
 
-@Bot.on_callback_query(filters.regex(r"^qris$"))
-async def _qris(client: Bot, query: CallbackQuery):
+    qris_image_url = "https://telegra.ph/file/3a8701cb42f9af1483800.jpg"
     qris_caption = "<b>Ini adalah gambar QRIS.</b>\n\n"
-    qris_caption += '<a href="https://telegra.ph/file/3a8701cb42f9af1483800.jpg">&#8205;</a>'
+    qris_caption += f'<a href="{qris_image_url}">&#8205;</a>'
 
     await query.message.edit_media(
-        media=types.InputMediaPhoto(
-            media="qr_Brother Cloth_04.03.23_1677873385.png",
+        media=InputMediaPhoto(
+            media="https://telegra.ph/file/3a8701cb42f9af1483800.jpg",
+            caption=qris_caption,
+            parse_mode="HTML",
         ),
-        caption=qris_caption,
-        parse_mode="HTML",
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
     )
 
