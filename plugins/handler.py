@@ -1,8 +1,8 @@
 import re
 
 from pyrogram import Client, filters
-from pyrogram.types import Message, CallbackQuery
-from pyrogram.types import InputMediaPhoto
+from pyrogram.types import Message, CallbackQuery, InputMediaPhoto
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from plugins import Database, Helper
 from plugins.command import *
@@ -10,15 +10,13 @@ from bot import Bot
 
 from Data import Data
 from pyrogram import filters
-from pyrogram.errors import MessageNotModified
-from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, Message
+from pyrogram import enums
 
 @Bot.on_message()
 async def on_message(client: Client, msg: Message):
     if msg.chat.type == enums.ChatType.PRIVATE:
         if msg.from_user is None:
             return
-
         else:
             uid = msg.from_user.id
         helper = Helper(client, msg)
@@ -45,110 +43,81 @@ async def on_message(client: Client, msg: Message):
         command = msg.text or msg.caption
         if command is None:
             await gagal_kirim_handler(client, msg)
-
         else:
             if command == '/start':
                 return await start_handler(client, msg)
-
             elif command == '/help':
                 return await help_handler(client, msg)
-
             elif command == '/status':
                 return await status_handler(client, msg)
-
             elif command == '/list_admin':
                 return await list_admin_handler(helper, client.id_bot)
-
             elif command == '/list_ban':
                 return await list_ban_handler(helper, client.id_bot)
-
             elif command == '/talent':
                 return await talent_handler(client, msg)
-
             elif command == '/daddysugar':
                 return await daddy_sugar_handler(client, msg)
-
             elif command == '/moansgirl':
                 return await moans_girl_handler(client, msg)
-
             elif command == '/moansboy':
                 return await moans_boy_handler(client, msg)
-
             elif command == '/gfrent':
                 return await gf_rent_handler(client, msg)
-
             elif command == '/bfrent':
                 return await bf_rent_handler(client, msg)
-
             elif command == '/stats':
                 if uid == config.id_admin:
                     return await statistik_handler(helper, client.id_bot)
-
             elif command == '/broadcast':
                 if uid == config.id_admin:
                     return await broadcast_handler(client, msg)
-
             elif command in ['/settings', '/setting']:
                 member = database.get_data_pelanggan()
                 if member.status in ['admin', 'owner']:
                     return await setting_handler(client, msg)
-
             elif re.search(r"^[\/]rate", command):
                 return await rate_talent_handler(client, msg)
-
             elif re.search(r"^[\/]tf_coin", command):
                 return await transfer_coin_handler(client, msg)
-
             elif re.search(r"^[\/]bot", command):
                 if uid == config.id_admin:
                     return await bot_handler(client, msg)
-
             elif re.search(r"^[\/]admin", command):
                 if uid == config.id_admin:
                     return await tambah_admin_handler(client, msg)
-
             elif re.search(r"^[\/]unadmin", command):
                 if uid == config.id_admin:
                     return await hapus_admin_handler(client, msg)
-
             elif re.search(r"^[\/]addtalent", command):
                 if uid == config.id_admin:
                     return await tambah_talent_handler(client, msg)
-
             elif re.search(r"^[\/]addsugar", command):
                 if uid == config.id_admin:
                     return await tambah_sugar_daddy_handler(client, msg)
-
             elif re.search(r"^[\/]addgirl", command):
                 if uid == config.id_admin:
                     return await tambah_moans_girl_handler(client, msg)
-
             elif re.search(r"^[\/]addboy", command):
                 if uid == config.id_admin:
                     return await tambah_moans_boy_handler(client, msg)
-
             elif re.search(r"^[\/]addgf", command):
                 if uid == config.id_admin:
                     return await tambah_gf_rent_handler(client, msg)
-
             elif re.search(r"^[\/]addbf", command):
                 if uid == config.id_admin:
                     return await tambah_bf_rent_handler(client, msg)
-
             elif re.search(r"^[\/]hapus", command):
                 if uid == config.id_admin:
                     return await hapus_talent_handler(client, msg)
-
             elif re.search(r"^[\/]ban", command):
                 member = database.get_data_pelanggan()
                 if member.status in ['admin', 'owner']:
                     return await ban_handler(client, msg)
-
             elif re.search(r"^[\/]unban", command):
                 member = database.get_data_pelanggan()
                 if member.status in ['admin', 'owner']:
                     return await unban_handler(client, msg)
-
             elif re.search(r"^[\/]jasa", command):
                 return await _jasa(client, msg)
 
@@ -185,7 +154,6 @@ async def on_message(client: Client, msg: Message):
         if msg.from_user is None:
             if msg.sender_chat.id != config.channel_1:
                 return
-
             if x := re.search(fr"(?:^|\s)({config.hastag})", command.lower()):
                 hastag = config.hastag.split('|')
                 if x[1] in [hastag[0], hastag[1]]:
@@ -200,8 +168,9 @@ async def on_message(client: Client, msg: Message):
 
 @Bot.on_callback_query(filters.regex(r"^jasa$"))
 async def _jasa(client: Bot, query: CallbackQuery):
-    await client.send_message(
+    await client.edit_message_text(
         query.message.chat.id,
+        query.message.message_id,
         Data.JASA.format(client.username, config.id_admin),
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
@@ -209,8 +178,9 @@ async def _jasa(client: Bot, query: CallbackQuery):
 
 @Bot.on_callback_query(filters.regex(r"^dana$"))
 async def _dana(client: Bot, query: CallbackQuery):
-    await client.send_message(
+    await client.edit_message_text(
         query.message.chat.id,
+        query.message.message_id,
         Data.DANA.format("081398871823"),
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
@@ -227,13 +197,12 @@ async def _qris(client: Bot, query: CallbackQuery):
         reply_markup=InlineKeyboardMarkup(Data.mbuttons),
     )
 
-
-
 @Bot.on_callback_query(filters.regex(r"^close$"))
 async def _close(client: Bot, query: CallbackQuery):
     await query.message.delete()
+
 @Bot.on_callback_query()
-async def on_callback_query(client: Client, query: CallbackQuery):
+async def on_callback_query(client: Bot, query: CallbackQuery):
     if query.data == 'photo':
         await photo_handler_inline(client, query)
     elif query.data == 'video':
