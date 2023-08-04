@@ -1,8 +1,8 @@
 {
   "name": "NekoMenfess",
-  "description": "mengirim pesan ke channel telegram secara anonymous",
+  "description": "Mengirim pesan ke channel Telegram secara anonymous",
   "keywords": [
-    "telegram",
+    "Telegram",
     "menfess",
     "fwb"
   ],
@@ -11,42 +11,42 @@
   "env": {
     "BOT_TOKEN": {
       "description": "Masukkan token bot kamu, didapatkan dari @Botfather",
-      "value": ""
+      "value": "your_bot_token_here"
     },
     "API_HASH": {
       "description": "app hash kamu, didapatkan dari my.telegram.org",
-      "value": ""
+      "value": "your_api_hash_here"
     },
     "API_ID": {
-      "description": "app id kmau, didapatkan dari my.telegram.org",
-      "value": ""
+      "description": "app id kamu, didapatkan dari my.telegram.org",
+      "value": "your_api_id_here"
     },
     "DB_URL": {
-      "description": "dapatkan database kamu di https://cloud.mongodb.com/",
-      "value": ""
+      "description": "Dapatkan URL database kamu di https://cloud.mongodb.com/",
+      "value": "your_db_url_here"
     },
     "DB_NAME": {
-      "description": "nama database",
+      "description": "Nama database",
       "value": "telegram"
     },
     "CHANNEL_1": {
-      "description": "channel id, untuk mengirim menfess",
+      "description": "Channel ID, untuk mengirim menfess",
       "value": "-100"
     },
     "CHANNEL_2": {
-      "description": "grup id, untuk mengcomment dichannel menfess",
+      "description": "Grup ID, untuk mengcomment di channel menfess",
       "value": "-100"
     },
     "CHANNEL_LOG": {
-      "description": "channel log id, untuk melihat log user menfess",
+      "description": "Channel log ID, untuk melihat log user menfess",
       "value": "-100"
     },
     "ID_ADMIN": {
       "description": "ID OWNER BOT MENFESS",
-      "value": ""
+      "value": "your_admin_id_here"
     },
     "BATAS_KIRIM": {
-      "description": "Batas kirim menfess perhari",
+      "description": "Batas kirim menfess per hari",
       "value": "5"
     },
     "BATAS_TALENT": {
@@ -54,7 +54,7 @@
       "value": "10"
     },
     "BATAS_DADDY_SUGAR": {
-      "description": "Batas top talent",
+      "description": "Batas top daddy sugar",
       "value": "10"
     },
     "BATAS_MOANSGIRL": {
@@ -74,46 +74,46 @@
       "value": "10"
     },
     "BIAYA_KIRIM": {
-      "description": "biaya kirim user menfess",
+      "description": "Biaya kirim user menfess",
       "value": "10"
     },
     "BIAYA_TALENT": {
-      "description": "biaya rating user ke talent fwb",
+      "description": "Biaya rating user ke talent FWB",
       "value": "80"
     },
     "BIAYA_DADDY_SUGAR": {
-      "description": "biaya rating user ke daddy sugar fwb",
+      "description": "Biaya rating user ke daddy sugar FWB",
       "value": "50"
     },
     "BIAYA_MOANSGIRL": {
-      "description": "biaya rating user ke moans girl fwb",
+      "description": "Biaya rating user ke moans girl FWB",
       "value": "40"
     },
     "BIAYA_MOANSBOY": {
-      "description": "biaya rating user ke moans boy fwb",
+      "description": "Biaya rating user ke moans boy FWB",
       "value": "50"
     },
     "BIAYA_GFRENT": {
-      "description": "biaya rating user ke girl friend rent fwb",
+      "description": "Biaya rating user ke girl friend rent FWB",
       "value": "40"
     },
     "BIAYA_BFRENT": {
-      "description": "biaya rating user ke boy friend rent fwb",
+      "description": "Biaya rating user ke boy friend rent FWB",
       "value": "50"
     },
     "HASTAG": {
-      "description": "menambahkan hastag, dipisahkan dengan spasi (#nekogirl wajib diawal dan #nekoboy setelah nekogirl)",
+      "description": "Menambahkan hastag, dipisahkan dengan spasi (#nekogirl wajib di awal dan #nekoboy setelah nekogirl)",
       "value": "#NekoGirl #NekoBoy #NekoAsk #NekoFind #NekoSpill #NekoStory"
     },
     "PIC_BOY": {
-      "description": "gambar fwb boy",
+      "description": "Gambar FWB boy",
       "value": "https://telegra.ph/file/387bdabb03deaf94fa4e9.jpg"
     },
     "PIC_TALENTGIRL": {
       "value": "https://telegra.ph/file/95801451d752f089f8e1e.jpg"
     },
     "PIC_GIRL": {
-      "description": "gambar fwb girl",
+      "description": "Gambar FWB girl",
       "value": "https://telegra.ph/file/2bc2dc1fad8e33cf69e6d.jpg"
     },
     "PIC_DADDYSUGAR": {
@@ -135,16 +135,16 @@
       "value": "https://telegra.ph/file/f58b957f34a978524f07a.jpg"
     },
     "PESAN_JOIN": {
-      "description": "pesan join grup, atau akses ditolak",
-      "value": "Tidak dapat diakses harap join terlebih dahulu"
+      "description": "Pesan join grup, atau akses ditolak",
+      "value": "Tidak dapat diakses, harap join terlebih dahulu"
     },
     "START_MSG": {
-      "description": "pesan start pada bot",
-      "value": "Hai {fullname} 🌱\n\nIni adalah bot alterbase, semua pesan yang kamu kirim akan masuk ke channel secara anonymous. ketik /help"
+      "description": "Pesan start pada bot",
+      "value": "Hai {fullname} 🌱\n\nIni adalah bot menfess, semua pesan yang kamu kirim akan masuk ke channel secara anonymous. Ketik /help"
     },
     "GAGAL_KIRIM": {
-      "description": "pesan ketika hastag yang diketik tidak sesuai",
-      "value": "{mention}, pesan mu gagal terkirim silahkan gunakan hastag:\n\n#NekoBoy / #NekoGirl untuk Mencari Pasangan, Teman , Partner dll\n#NekoAsk untuk Bertanya\n#NekoStory untuk Berbagi Cerita\n#NekoSpill untuk Spill Masalah\n#NekoFind untuk Mencari Pasangan, Teman, Partner dll"
+      "description": "Pesan ketika hastag yang diketik tidak sesuai",
+      "value": "{mention}, pesanmu gagal terkirim. Silahkan gunakan hastag:\n\n#NekoBoy / #NekoGirl untuk Mencari Pasangan, Teman, Partner dll\n#NekoAsk untuk Bertanya\n#NekoStory untuk Berbagi Cerita\n#NekoSpill untuk Spill Masalah\n#NekoFind untuk Mencari Pasangan, Teman, Partner dll"
     }
   },
   "addons": [
