@@ -14,7 +14,7 @@ async def ban_handler(client: Client, msg: types.Message):
         )
     if not (y := re.search(r"^[\/]ban(\s|\n)*(\d+)", msg.text)):
         return await msg.reply_text(
-            text="<b>Cara penggunaan ban user</b>\n\n<code>/ban id_user alasan ban</code>\n<code>/ban id_user</code>\n\nContoh :\n<code>/ban 121212021</code>\n<code>/ban 12121 share porn</code>",
+            text="<b>Cara penggunaan ban user</b>\n<code>/ban id_user alasan ban</code>\n<code>/ban id_user</code>\n\nContoh :\n<code>/ban 121212021</code>\n<code>/ban 12121 share porn</code>",
             quote=True,
             parse_mode=enums.ParseMode.HTML
         )
@@ -46,6 +46,12 @@ async def ban_handler(client: Client, msg: types.Message):
     # Send notification to channel_1
     notification_text = f"User <a href='tg://user?id={str(target)}'> {await get_user_mention(target, client)} </a> dengan Id: <code>{target}</code> sudah di banned. karena: {alasan}\n\noleh : <a href='tg://openmessage?user_id={str(config.id_admin)}'>{admin_mention}</a>"
     await client.send_message(config.channel_1, notification_text)
+
+    # Ban user in channel_1
+    await client.kick_chat_member(config.channel_1, target)
+
+    # Ban user in channel_2
+    await client.kick_chat_member(config.channel_2, target)
 
     return await msg.reply_text(
         text=f"<a href='tg://user?id={str(target)}'> {await get_user_mention(target, client)} </a> <i>berhasil dibanned</i>\n└Dibanned oleh : <a href='tg://openmessage?user_id={str(config.id_admin)}'>{admin_mention}</a>\n\nAlasan: {str(alasan)}\n\n{update}",
@@ -82,6 +88,12 @@ async def unban_handler(client: Client, msg: types.Message):
         # Send notification to channel_1
         notification_text = f"User <a href='tg://user?id={str(target)}'> {await get_user_mention(target, client)} </a> dengan Id:<code> {target}</code> sudah di unban. \n\noleh : <a href='tg://openmessage?user_id={str(config.id_admin)}'>{admin_mention}</a>"
         await client.send_message(config.channel_1, notification_text)
+
+        # Unban user in channel_1
+        await client.unban_chat_member(config.channel_1, target)
+
+        # Unban user in channel_2
+        await client.unban_chat_member(config.channel_2, target)
 
         return await msg.reply_text(
             text=f"<a href='tg://user?id={str(target)}'> {await get_user_mention(target, client)} </a> <i>berhasil diunbanned</i>\n└Diunbanned oleh : <a href='tg://openmessage?user_id={str(config.id_admin)}'>{admin_mention}</a>",
