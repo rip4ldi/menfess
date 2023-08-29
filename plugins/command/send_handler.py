@@ -4,20 +4,20 @@ import re
 from pyrogram import Client, types, enums
 from plugins import Database, Helper
 
-        
-
 async def send_with_pic_handler(client: Client, msg: types.Message, key: str, hastag: list):
     db = Database(msg.from_user.id)
     helper = Helper(client, msg)
     user = db.get_data_pelanggan()
+    
+    # Pemeriksaan untuk mencegah pengguna mengirim nama pengguna bot
+    if msg.from_user.username.lower() == config.bot_username.lower():
+        return await msg.reply('Anda tidak diizinkan mengirim pesan dengan nama pengguna bot.', quote=True)
+
     if msg.text or msg.photo or msg.video or msg.voice:
         menfess = user.menfess
         all_menfess = user.all_menfess
         coin = user.coin
-        if menfess >= config.batas_kirim and user.status in [
-            'member',
-            'talent',
-        ]:
+        if menfess >= config.batas_kirim and user.status in ['member', 'talent']:
             if coin >= config.biaya_kirim:
                 coin = user.coin - config.biaya_kirim
             else:
@@ -43,14 +43,6 @@ async def send_with_pic_handler(client: Client, msg: types.Message, key: str, ha
             pictur = config.pic_bfrent
         elif user.status == 'moans boy':
             picture = config.pic_moansboy
-
-            
-            
-
-
-
-
-            
 
         link = await get_link()
         caption = msg.text or msg.caption
@@ -82,10 +74,7 @@ async def send_menfess_handler(client: Client, msg: types.Message):
         menfess = db_user.menfess
         all_menfess = db_user.all_menfess
         coin = db_user.coin
-        if menfess >= config.batas_kirim and db_user.status in [
-            'member',
-            'talent',
-        ]:
+        if menfess >= config.batas_kirim and db_user.status in ['member', 'talent']:
             if coin >= config.biaya_kirim:
                 coin = db_user.coin - config.biaya_kirim
             else:
@@ -109,9 +98,7 @@ async def transfer_coin_handler(client: Client, msg: types.Message):
         return await msg.reply(err, True)
     helper = Helper(client, msg)
     if re.search(r"^[\/]tf_coin\s(\d+)(\s(\d+))?", msg.text or msg.caption):
-        if x := re.search(
-            r"^[\/]tf_coin\s(\d+)(\s(\d+))$", msg.text or msg.caption
-        ):
+        if x := re.search(r"^[\/]tf_coin\s(\d+)(\s(\d+))$", msg.text or msg.caption):
             target = x[1]
             coin = x[3]
         if y := re.search(r"^[\/]tf_coin\s(\d+)$", msg.text or msg.caption):
@@ -142,11 +129,7 @@ async def transfer_coin_handler(client: Client, msg: types.Message):
         target_db = db_target.get_data_pelanggan()
         ditransfer = my_coin - int(coin)
         diterima = target_db.coin + int(coin)
-        nama = (
-            "Admin"
-            if anu.status in ['owner', 'admin']
-            else msg.from_user.first_name
-        )
+        nama = "Admin" if anu.status in ['owner', 'admin'] else msg.from_user.first_name
         nama = await helper.escapeHTML(nama)
         try:
             await client.send_message(target, f"Coin berhasil ditambahkan senilai {coin} coin, cek /status\n└Oleh <a href='tg://user?id={msg.from_user.id}'>{nama}</a>")
@@ -175,10 +158,7 @@ async def transfer_coin_handler(client: Client, msg: types.Message):
         menfess = db_user.menfess
         all_menfess = db_user.all_menfess
         coin = db_user.coin
-        if menfess >= config.batas_kirim and db_user.status in [
-            'member',
-            'talent',
-        ]:
+        if menfess >= config.batas_kirim and db_user.status in ['member', 'talent']:
             if coin >= config.biaya_kirim:
                 coin = db_user.coin - config.biaya_kirim
             else:
